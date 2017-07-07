@@ -45,7 +45,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         mnuinformes = new javax.swing.JMenu();
         mnuConfiguracion = new javax.swing.JMenu();
-        Productos = new javax.swing.JMenuItem();
+        Temporada = new javax.swing.JMenuItem();
         mnuSistema = new javax.swing.JMenuItem();
         mnuZonal = new javax.swing.JMenuItem();
         mnuUnidad = new javax.swing.JMenuItem();
@@ -103,7 +103,7 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         mnusolicitadprog.setText("Solicitudes");
 
-        menuprogramada.setText("Solicitud Programada");
+        menuprogramada.setText("Programación Anual");
         menuprogramada.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuprogramadaActionPerformed(evt);
@@ -140,14 +140,14 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         mnuConfiguracion.setText("Configuración");
 
-        Productos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/producto.png"))); // NOI18N
-        Productos.setText("Productos");
-        Productos.addActionListener(new java.awt.event.ActionListener() {
+        Temporada.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/producto.png"))); // NOI18N
+        Temporada.setText("Temporada");
+        Temporada.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ProductosActionPerformed(evt);
+                TemporadaActionPerformed(evt);
             }
         });
-        mnuConfiguracion.add(Productos);
+        mnuConfiguracion.add(Temporada);
 
         mnuSistema.setText("Sistema");
         mnuSistema.addActionListener(new java.awt.event.ActionListener() {
@@ -258,11 +258,11 @@ public class frmPrincipal extends javax.swing.JFrame {
         misSistemas.show();
     }//GEN-LAST:event_mnuSistemaActionPerformed
 
-    private void ProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProductosActionPerformed
-        FrmUsuarios misUsuarios = new FrmUsuarios();
-        dpnEscritorio.add(misUsuarios);
-        misUsuarios.show();
-    }//GEN-LAST:event_ProductosActionPerformed
+    private void TemporadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TemporadaActionPerformed
+        FrmTemporada misTemporadas = new FrmTemporada();
+        dpnEscritorio.add(misTemporadas);
+        misTemporadas.show();
+    }//GEN-LAST:event_TemporadaActionPerformed
 
     private void mnuBodegaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuBodegaActionPerformed
         FrmUsuarios misUsuarios = new FrmUsuarios();
@@ -284,7 +284,7 @@ public class frmPrincipal extends javax.swing.JFrame {
 
     private void mnurespuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnurespuestoActionPerformed
         // TODO add your handling code here:
-        FrmPresupuesto misRepuesto = new FrmPresupuesto();
+        FrmRepuesto misRepuesto = new FrmRepuesto();
         dpnEscritorio.add(misRepuesto);
         
         try {
@@ -349,7 +349,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem Productos;
+    private javax.swing.JMenuItem Temporada;
     private javax.swing.JDesktopPane dpnEscritorio;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;

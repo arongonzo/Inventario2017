@@ -29,11 +29,9 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                   <Component id="pnlgrid" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                      <Component id="pnlproducto" alignment="0" max="32767" attributes="0"/>
-                      <Component id="lbl_titulo" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="pnlinfo" alignment="0" max="32767" attributes="0"/>
-                  </Group>
+                  <Component id="pnlproducto" alignment="0" max="32767" attributes="0"/>
+                  <Component id="lbl_titulo" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="pnlinfo" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace pref="18" max="32767" attributes="0"/>
           </Group>
@@ -61,7 +59,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="18" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="SOLICITUD PROGRAMADA"/>
+        <Property name="text" type="java.lang.String" value="PROGRAMACION ANUAL"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JPanel" name="pnlinfo">

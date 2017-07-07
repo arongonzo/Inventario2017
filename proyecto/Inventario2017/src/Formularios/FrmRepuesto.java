@@ -9,12 +9,12 @@ package Formularios;
  *
  * @author sam gonzo
  */
-public class FrmPresupuesto extends javax.swing.JInternalFrame {
+public class FrmRepuesto extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form FrmPresupuesto
      */
-    public FrmPresupuesto() {
+    public FrmRepuesto() {
         initComponents();
     }
 

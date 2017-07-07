@@ -187,7 +187,7 @@ public class FrmProgramada extends javax.swing.JInternalFrame {
         setResizable(true);
 
         lbl_titulo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        lbl_titulo.setText("SOLICITUD PROGRAMADA");
+        lbl_titulo.setText("PROGRAMACION ANUAL");
 
         pnlinfo.setBorder(javax.swing.BorderFactory.createTitledBorder("INFORMACION DE PEDIDO"));
 
@@ -517,10 +517,9 @@ public class FrmProgramada extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(pnlgrid, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(pnlproducto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lbl_titulo, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(pnlinfo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(pnlproducto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lbl_titulo, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlinfo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
