@@ -49,6 +49,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         mnuSistema = new javax.swing.JMenuItem();
         mnuZonal = new javax.swing.JMenuItem();
         mnuUnidad = new javax.swing.JMenuItem();
+        mnuCondicionSistema = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         mnuUsuarios = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
@@ -173,6 +174,14 @@ public class frmPrincipal extends javax.swing.JFrame {
             }
         });
         mnuConfiguracion.add(mnuUnidad);
+
+        mnuCondicionSistema.setText("Condición Sistema");
+        mnuCondicionSistema.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuCondicionSistemaActionPerformed(evt);
+            }
+        });
+        mnuConfiguracion.add(mnuCondicionSistema);
         mnuConfiguracion.add(jSeparator1);
 
         mnuUsuarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/usuario.png"))); // NOI18N
@@ -312,6 +321,13 @@ public class frmPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
+    private void mnuCondicionSistemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCondicionSistemaActionPerformed
+       // TODO add your handling code here:
+        FrmCondicionSistema misCondiciones = new FrmCondicionSistema();
+        dpnEscritorio.add(misCondiciones);
+        misCondiciones.show();
+    }//GEN-LAST:event_mnuCondicionSistemaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -360,6 +376,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuprogramada;
     private javax.swing.JMenu mnuBodega;
     private javax.swing.JMenuItem mnuClave;
+    private javax.swing.JMenuItem mnuCondicionSistema;
     private javax.swing.JMenu mnuConfiguracion;
     private javax.swing.JMenu mnuDespacho;
     private javax.swing.JMenuItem mnuSalir;

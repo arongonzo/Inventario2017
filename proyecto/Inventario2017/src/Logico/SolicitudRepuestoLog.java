@@ -12,11 +12,11 @@ public class SolicitudRepuestoLog {
         return repuesto.AgregarRepuesto(Srp);
     }
 
-    public boolean UpdateProgramada(SolicitudRepuesto Srp) {
+    public boolean UpdateRepuesto(SolicitudRepuesto Srp) {
         return repuesto.UpdateRepuesto(Srp);
     }
 
-    public boolean DeleteProgramada(SolicitudRepuesto Srp) {
+    public boolean DeleteRepuesto(SolicitudRepuesto Srp) {
         return repuesto.DeleteRepuesto(Srp);
     }
 

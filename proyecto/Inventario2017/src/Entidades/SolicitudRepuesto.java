@@ -74,6 +74,11 @@ public class SolicitudRepuesto {
         this.estado = estado;
     }
 
+    public SolicitudRepuesto(String fecha_creacion)
+    {
+        this.fecha_creacion = fecha_creacion;
+        
+    }
     
     public int getIdSolicitudRepuesto() {
         return id_solicitudRepuesto;
