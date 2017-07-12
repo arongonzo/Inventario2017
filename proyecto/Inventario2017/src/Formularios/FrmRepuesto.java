@@ -1,5 +1,5 @@
-
 package Formularios;
+
 import ModeloTabla.CmbZonal;
 import ModeloTabla.CmbSistema;
 import ModeloTabla.CmbUnidad;
@@ -11,9 +11,9 @@ import Logico.ProductoLog;
 import Entidades.SolicitudRepuesto;
 import Logico.SolicitudRepuestoLog;
 
-import Entidades.SolicitudProgramadaDetalle;
-import Logico.SolicitudProgramadaDetalleLog;
-import ModeloTabla.ModeloTablaProramadaDetalle;
+import ModeloTabla.ModeloTablaView_ProductosSolicitados;
+import Logico.View_ProductosSolicitadosLog;
+import Entidades.View_ProductosSolicitados;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -35,7 +35,6 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 
-
 public class FrmRepuesto extends javax.swing.JInternalFrame {
 
     ProductoLog productos;
@@ -44,22 +43,89 @@ public class FrmRepuesto extends javax.swing.JInternalFrame {
     
     SolicitudRepuestoLog repuesto;
     SolicitudRepuesto srp;
-
-    SolicitudProgramadaDetalleLog programadasdetalle;
-    SolicitudProgramadaDetalle pgrd;
-    ModeloTablaProramadaDetalle mtpd;
+    
+    View_ProductosSolicitados viewp;
+    View_ProductosSolicitadosLog view_producto;
+    ModeloTablaView_ProductosSolicitados vewtabla;
     
     public FrmRepuesto() {
         
         initComponents();
         productos = new ProductoLog();
         repuesto = new SolicitudRepuestoLog();
-        programadasdetalle = new SolicitudProgramadaDetalleLog();
+        view_producto = new View_ProductosSolicitadosLog();
+        
         CargarCombo();
         Limpiar();
         lbl_LlaveRepuesto.setVisible(false);
+        CargarDatosPendientes();
+        
     }
 
+    public void CargarDatosPendientes()
+    {
+        try
+        {
+            ResultSet objResultSet;
+            objResultSet = Conecciones.Coneccion.consulta(" SELECT unidad.id_zonal, solucitud_repuesto.* FROM solucitud_repuesto  left JOIN  unidad ON solucitud_repuesto.id_unidad = unidad.id_unidad where solucitud_repuesto.estado = 2 ");
+
+            while (objResultSet.next())
+            {
+                
+                ActivarInfo();
+                
+                lbl_numeroregistro.setText(objResultSet.getString("id_comercial"));
+                txt_nombretecnico.setText(objResultSet.getString("nombre_tecnico"));
+                txt_correo.setText(objResultSet.getString("correo_electronico"));
+                txt_anexo.setText(objResultSet.getString("Anexo"));
+                          
+                if(objResultSet.getString("id_zonal") != null)
+                {
+                    cbxzonal.setSelectedItem(objResultSet.getString("id_zonal"));
+                    cbx_unidad.setSelectedItem(objResultSet.getString("id_unidad"));
+                }
+                
+                txt_marcaequipo.setText(objResultSet.getString("marca_equipo"));
+                txt_modeloequipo.setText(objResultSet.getString("modelo_equipo"));
+                txt_numeroserie.setText(objResultSet.getString("numero_Serie"));
+                
+                if(objResultSet.getString("id_condicionsistema") != null)
+                {
+                    cbx_condicionsistema.setSelectedItem(objResultSet.getString("id_condicionsistema"));
+                }
+                
+                if(objResultSet.getString("id_sistema") != null)
+                {
+                    cbx_condicionsistema.setSelectedItem(objResultSet.getString("id_sistema"));
+                }
+                
+                btn_nuevo.setEnabled(false);
+                btn_finalizar.setEnabled(true);
+                
+                ListarTablaBuscar();
+                
+            }
+        }
+        catch (Exception ex) 
+        {
+            System.out.println(ex.getCause());
+        }
+    }
+    
+    private void ListarTablaBuscar() {
+        
+        CmbUnidad items = (CmbUnidad)cbx_unidad.getSelectedItem();
+        int id_unidad = Integer.parseInt(items.getID());
+        
+        CmbSistema itemsis = (CmbSistema)cbx_sistema.getSelectedItem();
+        int id_sistema = Integer.parseInt(itemsis.getID());
+        
+        List<View_ProductosSolicitados> listas = view_producto.listado(id_sistema , id_unidad);
+        vewtabla = new ModeloTablaView_ProductosSolicitados(listas);
+        
+        jTable2.setModel(vewtabla);
+        jTable2.getRowSorter();
+    }
     public void CargarCombo()
     {
         try
@@ -487,7 +553,7 @@ public class FrmRepuesto extends javax.swing.JInternalFrame {
 
         cbx_unidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        lbl_nombretecnico.setText("Nombre Técnico que efectúa despacho");
+        lbl_nombretecnico.setText("Nombre Técnico de requerimiento");
 
         lbl_correo.setText("Correo electrónico");
 
@@ -1022,6 +1088,7 @@ public class FrmRepuesto extends javax.swing.JInternalFrame {
     }
     
     private void ListarTabla() {
+        /*
         int llaveprogramada = Integer.parseInt(lbl_LlaveRepuesto.getText());
         
         List<SolicitudProgramadaDetalle> listas = programadasdetalle.listado(llaveprogramada);
@@ -1029,11 +1096,13 @@ public class FrmRepuesto extends javax.swing.JInternalFrame {
         
         jTable1.setModel(mtpd);
         jTable1.getRowSorter();
+        */
     }
     
     private void btn_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarActionPerformed
         if(validar_formulario_producto()){
 
+            /*
             boolean resp = false;
             SolicitudProgramadaDetalle Pgrd;
 
@@ -1052,7 +1121,7 @@ public class FrmRepuesto extends javax.swing.JInternalFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Dato no Agregdo");
             }
-
+            */
         }
     }//GEN-LAST:event_btn_agregarActionPerformed
 
@@ -1125,7 +1194,7 @@ public class FrmRepuesto extends javax.swing.JInternalFrame {
 
     private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
 
-        boolean resp = programadasdetalle.DeleteProgramada(pgrd);
+        /*boolean resp = programadasdetalle.DeleteProgramada(pgrd);
         if (resp == false) {
             JOptionPane.showMessageDialog(null, "Dato Eliminado");
             ListarTabla();
@@ -1134,21 +1203,21 @@ public class FrmRepuesto extends javax.swing.JInternalFrame {
             activarProducto();
         } else {
             JOptionPane.showMessageDialog(null, "Dato no Eliminado");
-        }
+        }*/
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_eliminarActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
 
-        pgrd = ((ModeloTablaProramadaDetalle) jTable1.getModel()).DameProgramadaDetalle(jTable1.getSelectedRow());
+        viewp = ((ModeloTablaView_ProductosSolicitados) jTable1.getModel()).DameProgramadaDetalle(jTable1.getSelectedRow());
 
-        lblllaveprogramadadetalle.setText(String.valueOf(pgrd.getIdProgramadaDetalle()));
+        lblllaveprogramadadetalle.setText(String.valueOf(viewp.getidProductoSolicitado()));
 
-        txt_nsn.setText(pgrd.getNsn());
-        txt_numeroparte.setText(pgrd.getNumeroparte());
-        txt_descripcion.setText(pgrd.getDescripcion());
-        txt_producto.setText(pgrd.getProduto());
-        txt_cantidad.setText(String.valueOf(pgrd.getCantidad()));
+        txt_nsn.setText(viewp.getNsn());
+        txt_numeroparte.setText(viewp.getNumeroparte());
+        txt_descripcion.setText(viewp.getDescripcion());
+        txt_producto.setText(viewp.getProduto());
+        txt_cantidad.setText(String.valueOf(viewp.getCantidad()));
 
         btn_buscarproducto.setEnabled(false);
         btn_agregar.setEnabled(false);
@@ -1164,7 +1233,7 @@ public class FrmRepuesto extends javax.swing.JInternalFrame {
             int id_sistema = Integer.parseInt(items.getID());
 
             if(id_sistema>0){
-
+                ListarTablaBuscar();
             }
         }
         catch (Exception ex)

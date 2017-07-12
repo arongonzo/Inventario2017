@@ -623,7 +623,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lbl_nombretecnico">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Nombre T&#xe9;cnico que efect&#xfa;a despacho"/>
+            <Property name="text" type="java.lang.String" value="Nombre T&#xe9;cnico de requerimiento"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txt_nombretecnico">
