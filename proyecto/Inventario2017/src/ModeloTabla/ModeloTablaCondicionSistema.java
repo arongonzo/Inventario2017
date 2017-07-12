@@ -48,5 +48,4 @@ public class ModeloTablaCondicionSistema extends AbstractTableModel {
     public CondicionSistema DameSistema(int fila) {
         return sistemas.get(fila);
     }
-    
 }
