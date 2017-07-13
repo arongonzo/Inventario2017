@@ -621,7 +621,7 @@ public class FrmProducto extends javax.swing.JInternalFrame {
         PnlIngreso.setEnabled(true);
         
         btn_Nuevo.setEnabled(false);
-        btn_grabar.setEnabled(true);
+        btn_grabar.setEnabled(false);
         
         btn_Eliminar.setEnabled(true);
         btn_Modificar.setEnabled(true);
