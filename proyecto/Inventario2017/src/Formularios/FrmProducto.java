@@ -3,6 +3,7 @@ package Formularios;
 import Entidades.Producto;
 import Logico.ProductoLog;
 import ModeloTabla.ModeloTablaProducto;
+
 import static Formularios.frmLogin.res;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -34,8 +35,8 @@ public class FrmProducto extends javax.swing.JInternalFrame {
     public FrmProducto() {
         initComponents();
         productos = new ProductoLog();
-        ListarTabla();
         Limpiar();
+        ListarTabla();
         lblllaveproducto.setVisible(false);
     }
 
@@ -89,14 +90,13 @@ public class FrmProducto extends javax.swing.JInternalFrame {
     }
     
     private void ListarTabla() {
+        
         String filtroNSN = txt_filtroNSN.getText();
         String filtroParte = txt_filtroParte.getText();
+        String filtroproducto = txt_filtroproducto.getText();
         
-        List<Producto> listas = productos.listado(0,filtroNSN , "", filtroParte);
+        List<Producto> listas = productos.listado(0,filtroNSN , filtroParte, filtroproducto);
         mtp = new ModeloTablaProducto(listas);
-        
-        /*List<Usuario> listas = usuarios.listado(filtroNSN);
-        mtp = new ModeloTablaUsuario(listas);*/
         
         jTable1.setModel(mtp);
         jTable1.getRowSorter();
@@ -125,10 +125,13 @@ public class FrmProducto extends javax.swing.JInternalFrame {
         txt_filtroParte.setEnabled(true);
         
         btn_Nuevo.setEnabled(true);
+        
         btn_grabar.setEnabled(false);
+        btn_Modificar.setEnabled(false);
         btn_Eliminar.setEnabled(false);
         btn_Cancelar.setEnabled(false);
         btn_salir.setEnabled(true);
+        
         btn_exportar.setEnabled(true);
         PnlIngreso.setEnabled(false);
         lblllaveproducto.setText("0");
@@ -141,7 +144,6 @@ public class FrmProducto extends javax.swing.JInternalFrame {
         PnlIngreso = new javax.swing.JPanel();
         lblvallor = new javax.swing.JLabel();
         lblnombre = new javax.swing.JLabel();
-        lblTitulo = new javax.swing.JLabel();
         lblstock = new javax.swing.JLabel();
         lblnsn = new javax.swing.JLabel();
         lbldescripcion = new javax.swing.JLabel();
@@ -163,22 +165,25 @@ public class FrmProducto extends javax.swing.JInternalFrame {
         btn_grabar = new javax.swing.JButton();
         btn_Cancelar = new javax.swing.JButton();
         btn_exportar = new javax.swing.JButton();
+        btn_Modificar = new javax.swing.JButton();
         pnlbusqueda = new javax.swing.JPanel();
         btn_buscar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        lblTituloFiltro = new javax.swing.JLabel();
         txt_filtroNSN = new javax.swing.JTextField();
         lblfiltrolbl = new javax.swing.JLabel();
         lblfiltroparte = new javax.swing.JLabel();
         txt_filtroParte = new javax.swing.JTextField();
+        lblfiltrolbl1 = new javax.swing.JLabel();
+        txt_filtroproducto = new javax.swing.JTextField();
+        btn_refrescar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);
 
-        PnlIngreso.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        PnlIngreso.setBorder(javax.swing.BorderFactory.createTitledBorder("INFORMACION DE PRODUCTO"));
         PnlIngreso.setPreferredSize(new java.awt.Dimension(522, 260));
 
         lblvallor.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -186,9 +191,6 @@ public class FrmProducto extends javax.swing.JInternalFrame {
 
         lblnombre.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblnombre.setText("Nombre Producto");
-
-        lblTitulo.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        lblTitulo.setText("Productos");
 
         lblstock.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblstock.setText("Q stock");
@@ -219,15 +221,14 @@ public class FrmProducto extends javax.swing.JInternalFrame {
                         .addGap(10, 10, 10)
                         .addGroup(PnlIngresoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(PnlIngresoLayout.createSequentialGroup()
-                                .addComponent(lblTitulo)
-                                .addGap(59, 59, 59)
+                                .addGap(150, 150, 150)
                                 .addComponent(lblllaveproducto)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(PnlIngresoLayout.createSequentialGroup()
                                 .addGroup(PnlIngresoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblParte, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(lblnsn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(lbldescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
+                                    .addComponent(lbldescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(lblvallor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(lblstock, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(lblubicacion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -241,7 +242,7 @@ public class FrmProducto extends javax.swing.JInternalFrame {
                                     .addComponent(txt_ubicacion)))))
                     .addGroup(PnlIngresoLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(lblnombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblnombre, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -250,9 +251,8 @@ public class FrmProducto extends javax.swing.JInternalFrame {
             PnlIngresoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PnlIngresoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(PnlIngresoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblTitulo)
-                    .addComponent(lblllaveproducto))
+                .addComponent(lblllaveproducto)
+                .addGap(17, 17, 17)
                 .addGroup(PnlIngresoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblnsn)
                     .addComponent(txt_nsn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -294,7 +294,7 @@ public class FrmProducto extends javax.swing.JInternalFrame {
             }
         });
 
-        btn_Nuevo.setText("Nuevo");
+        btn_Nuevo.setText("Nuevo Producto");
         btn_Nuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_NuevoActionPerformed(evt);
@@ -329,6 +329,13 @@ public class FrmProducto extends javax.swing.JInternalFrame {
             }
         });
 
+        btn_Modificar.setText("Modificar");
+        btn_Modificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_ModificarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlBotonesLayout = new javax.swing.GroupLayout(pnlBotones);
         pnlBotones.setLayout(pnlBotonesLayout);
         pnlBotonesLayout.setHorizontalGroup(
@@ -344,7 +351,8 @@ public class FrmProducto extends javax.swing.JInternalFrame {
                             .addComponent(btn_Cancelar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(btn_salir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_exportar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btn_exportar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_Modificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         pnlBotonesLayout.setVerticalGroup(
@@ -355,17 +363,19 @@ public class FrmProducto extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_grabar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_Eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_Modificar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_Eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btn_Cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_exportar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(6, 6, 6))
         );
 
-        pnlbusqueda.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        pnlbusqueda.setBorder(javax.swing.BorderFactory.createTitledBorder("PRODUCTOS EN STOCK"));
 
         btn_buscar.setText("Buscar");
         btn_buscar.addActionListener(new java.awt.event.ActionListener() {
@@ -389,12 +399,18 @@ public class FrmProducto extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(jTable1);
 
-        lblTituloFiltro.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        lblTituloFiltro.setText("Filtro de Bodega");
-
         lblfiltrolbl.setText("N.S.N");
 
         lblfiltroparte.setText("Nº Parte");
+
+        lblfiltrolbl1.setText("Producto");
+
+        btn_refrescar.setText("Refrescar");
+        btn_refrescar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_refrescarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlbusquedaLayout = new javax.swing.GroupLayout(pnlbusqueda);
         pnlbusqueda.setLayout(pnlbusquedaLayout);
@@ -405,38 +421,42 @@ public class FrmProducto extends javax.swing.JInternalFrame {
                 .addGroup(pnlbusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1)
                     .addGroup(pnlbusquedaLayout.createSequentialGroup()
+                        .addGroup(pnlbusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(lblfiltrolbl1, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
+                            .addComponent(lblfiltrolbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(pnlbusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblTituloFiltro)
                             .addGroup(pnlbusquedaLayout.createSequentialGroup()
-                                .addComponent(lblfiltrolbl)
-                                .addGap(35, 35, 35)
                                 .addComponent(txt_filtroNSN, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(lblfiltroparte)
                                 .addGap(44, 44, 44)
                                 .addComponent(txt_filtroParte, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btn_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                                .addComponent(btn_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnlbusquedaLayout.createSequentialGroup()
+                                .addComponent(txt_filtroproducto, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btn_refrescar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         pnlbusquedaLayout.setVerticalGroup(
             pnlbusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlbusquedaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lblTituloFiltro)
+                .addGroup(pnlbusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblfiltrolbl)
+                    .addComponent(txt_filtroNSN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblfiltroparte)
+                    .addComponent(txt_filtroParte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_buscar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pnlbusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_buscar)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlbusquedaLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(pnlbusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblfiltrolbl)
-                            .addComponent(txt_filtroNSN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblfiltroparte)
-                            .addComponent(txt_filtroParte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pnlbusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblfiltrolbl1)
+                    .addComponent(txt_filtroproducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_refrescar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -444,15 +464,17 @@ public class FrmProducto extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(pnlbusqueda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(PnlIngreso, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
+                        .addComponent(pnlbusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(PnlIngreso, javax.swing.GroupLayout.DEFAULT_SIZE, 547, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(pnlBotones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(137, 137, 137))
+                        .addComponent(pnlBotones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(167, 167, 167))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -460,8 +482,8 @@ public class FrmProducto extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(PnlIngreso, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pnlBotones, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(pnlBotones, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(pnlbusqueda, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -493,13 +515,12 @@ public class FrmProducto extends javax.swing.JInternalFrame {
         txt_parte.setEnabled(true);
         txt_valor.setEnabled(true);
         
-        
-        
         btn_grabar.setEnabled(true);
         btn_Cancelar.setEnabled(true);
         PnlIngreso.setEnabled(true);
         lblllaveproducto.setText("0");
 
+        btn_Modificar.setEnabled(false);
         btn_Eliminar.setEnabled(false);
         btn_Nuevo.setEnabled(false);
         btn_salir.setEnabled(false);
@@ -507,7 +528,7 @@ public class FrmProducto extends javax.swing.JInternalFrame {
         
         btn_grabar.setEnabled(true);
         btn_Cancelar.setEnabled(true);
-        btn_Eliminar.setEnabled(true);
+       
 
     }//GEN-LAST:event_btn_NuevoActionPerformed
 
@@ -549,20 +570,10 @@ public class FrmProducto extends javax.swing.JInternalFrame {
             boolean resp = false;
             Producto prd;
 
-            int id_producto = Integer.parseInt(lblllaveproducto.getText());
-
-            if(id_producto ==0){
-                prd = new Producto(id_producto, txt_nsn.getText(),txtnombre.getText(), txt_descripcion.getText(), txt_parte.getText()
+            prd = new Producto(0, txt_nsn.getText(),txtnombre.getText(), txt_descripcion.getText(), txt_parte.getText()
                         , Integer.parseInt(txt_stock.getText()), Integer.parseInt(txt_valor.getText()), txt_ubicacion.getText(),"","","",1);
-                resp = productos.AgregarProducto(prd);
-            }
-            else
-            {
-                prd = new Producto(id_producto, txt_nsn.getText(),txtnombre.getText(),txt_descripcion.getText(),txt_parte.getText()
-                        ,Integer.parseInt(txt_stock.getText()), Integer.parseInt(txt_valor.getText()), txt_ubicacion.getText(),"","","",1);
-                resp = productos.UpdateProducto(prd);
-            }
-
+            resp = productos.AgregarProducto(prd);
+            
             if (resp == false) {
                 JOptionPane.showMessageDialog(null, "Dato Agregdo");
                 ListarTabla();
@@ -608,32 +619,82 @@ public class FrmProducto extends javax.swing.JInternalFrame {
         txt_stock.setEnabled(true);
         txt_ubicacion.setEnabled(true);
         PnlIngreso.setEnabled(true);
+        
         btn_Nuevo.setEnabled(false);
-        btn_Eliminar.setEnabled(true);
         btn_grabar.setEnabled(true);
+        
+        btn_Eliminar.setEnabled(true);
+        btn_Modificar.setEnabled(true);
+        
         btn_Cancelar.setEnabled(true);
         btn_salir.setEnabled(false);
         btn_exportar.setEnabled(false);
     }//GEN-LAST:event_jTable1MouseClicked
+
+    private void btn_ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ModificarActionPerformed
+
+        if(validar_formulario()){
+
+            boolean resp = false;
+            Producto prd;
+
+            int id_producto = Integer.parseInt(lblllaveproducto.getText());
+            
+            prd = new Producto(id_producto, 
+                    txt_nsn.getText(),
+                    txtnombre.getText(),
+                    txt_descripcion.getText(),
+                    txt_parte.getText()
+                    ,Integer.parseInt(txt_stock.getText()), 
+                    Integer.parseInt(txt_valor.getText()), 
+                    txt_ubicacion.getText(),
+                    "",
+                    "",
+                    "",
+                    1);
+            
+                resp = productos.UpdateProducto(prd);
+            
+            if (resp == false) {
+                JOptionPane.showMessageDialog(null, "Dato Agregdo");
+                ListarTabla();
+                Limpiar();
+            } else {
+                JOptionPane.showMessageDialog(null, "Dato no Agregdo");
+            }
+
+        }
+    }//GEN-LAST:event_btn_ModificarActionPerformed
+
+    private void btn_refrescarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_refrescarActionPerformed
+       
+        txt_filtroNSN.setText("");
+        txt_filtroParte.setText("");
+        txt_filtroproducto.setText("");
+        
+        ListarTabla();
+        
+    }//GEN-LAST:event_btn_refrescarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PnlIngreso;
     private javax.swing.JButton btn_Cancelar;
     private javax.swing.JButton btn_Eliminar;
+    private javax.swing.JButton btn_Modificar;
     private javax.swing.JButton btn_Nuevo;
     private javax.swing.JButton btn_buscar;
     private javax.swing.JButton btn_exportar;
     private javax.swing.JButton btn_grabar;
+    private javax.swing.JButton btn_refrescar;
     private javax.swing.JButton btn_salir;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblParte;
-    private javax.swing.JLabel lblTitulo;
-    private javax.swing.JLabel lblTituloFiltro;
     private javax.swing.JLabel lbldescripcion;
     private javax.swing.JLabel lblfiltrolbl;
+    private javax.swing.JLabel lblfiltrolbl1;
     private javax.swing.JLabel lblfiltroparte;
     private javax.swing.JLabel lblllaveproducto;
     private javax.swing.JLabel lblnombre;
@@ -646,6 +707,7 @@ public class FrmProducto extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txt_descripcion;
     private javax.swing.JTextField txt_filtroNSN;
     private javax.swing.JTextField txt_filtroParte;
+    private javax.swing.JTextField txt_filtroproducto;
     private javax.swing.JTextField txt_nsn;
     private javax.swing.JTextArea txt_parte;
     private javax.swing.JTextField txt_stock;

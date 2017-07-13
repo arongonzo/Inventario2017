@@ -19,7 +19,7 @@ public class ProductoLog {
         return productos.DeleteProducto(Prd);
     }
 
-    public List<Producto> listado(int id_producto, String nsn, String descripcion, String nParte) {
-      return productos.listado(id_producto, nsn, descripcion, nParte);
+    public List<Producto> listado(int id_producto, String nsn, String nParte, String nombreproducto) {
+      return productos.listado(id_producto, nsn, nParte, nombreproducto);
     } 
 }

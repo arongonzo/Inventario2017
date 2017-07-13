@@ -84,7 +84,7 @@ public class ProductoDao {
         return resp;
     }
 
-    public List<Producto> listado(int id_producto, String nsn, String descripcion, String nParte) {
+    public List<Producto> listado(int id_producto, String nsn, String nParte , String nombre) {
         Connection con = null;
         CallableStatement cstm = null;
         ResultSet rs = null;
@@ -95,8 +95,8 @@ public class ProductoDao {
             cstm = con.prepareCall("{Call pa_listarproducto(?,?,?,?)}");
             cstm.setInt(1, id_producto);
             cstm.setString(2, nsn);
-            cstm.setString(3, descripcion);
-            cstm.setString(4, nParte);
+            cstm.setString(3, nParte);
+            cstm.setString(4, nombre);
             
             rs = cstm.executeQuery();
             Producto Prd = null;
