@@ -2,6 +2,7 @@
 package Formularios;
 
 import Conecciones.Coneccion;
+import clases.Inventario;
 import java.awt.event.KeyEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -132,7 +133,9 @@ public class frmLogin extends javax.swing.JFrame {
         String stx_usuario = txtUser.getText();
         String stx_clave = new String(txtPass.getPassword());
         
-        String stx_consulta = "SELECT db_owner.usuarios.username, db_owner.usuarios.clave, db_owner.usuarios.id_usuario, db_owner.Roles.Nombre_rol, db_owner.usuarios.nombre, db_owner.usuarios.apellido, db_owner.Roles.id_rol " +
+        String stx_consulta = "SELECT db_owner.usuarios.username, "
+                + "db_owner.usuarios.clave, "
+                + "db_owner.usuarios.id_usuario, db_owner.Roles.Nombre_rol, db_owner.usuarios.nombre, db_owner.usuarios.apellido, db_owner.Roles.id_rol " +
                             " FROM db_owner.usuarios INNER JOIN " +
                             " db_owner.Roles ON db_owner.usuarios.id_rol = db_owner.Roles.id_rol" +
                             " where db_owner.usuarios.username = '"+ stx_usuario +"' and db_owner.usuarios.clave = '"+ stx_clave +"'";
@@ -140,10 +143,11 @@ public class frmLogin extends javax.swing.JFrame {
         res = Conecciones.Coneccion.consulta(stx_consulta);
         try
         {
-                while(res.next())
-                {
-                    btx_estado = true;
-                }
+            while(res.next())
+            {
+                Inventario.global_llaveusuario = res.getString("id_usuario");
+                btx_estado = true;
+            }
         } 
         catch (SQLException e)
         {

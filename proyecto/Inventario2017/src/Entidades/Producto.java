@@ -56,7 +56,7 @@ public class Producto {
         return nombre;
     }
 
-    public void setNombre(String nobmre) {
+    public void setNombre(String nombre) {
         this.nombre = nombre;
     }
     
