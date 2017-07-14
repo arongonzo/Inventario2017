@@ -18,6 +18,7 @@ public class frmPrincipal extends javax.swing.JFrame {
      */
     public frmPrincipal() {
         initComponents();
+        Llaveusuario.setVisible(false);
         
     }
 
@@ -33,6 +34,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         dpnEscritorio = new javax.swing.JDesktopPane();
+        Llaveusuario = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuBodega = new javax.swing.JMenu();
         mnuproductos = new javax.swing.JMenuItem();
@@ -61,16 +63,28 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         dpnEscritorio.setBackground(new java.awt.Color(204, 204, 204));
 
+        Llaveusuario.setText("jLabel1");
+        Llaveusuario.setEnabled(false);
+
+        dpnEscritorio.setLayer(Llaveusuario, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout dpnEscritorioLayout = new javax.swing.GroupLayout(dpnEscritorio);
         dpnEscritorio.setLayout(dpnEscritorioLayout);
         dpnEscritorioLayout.setHorizontalGroup(
             dpnEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 827, Short.MAX_VALUE)
+            .addGroup(dpnEscritorioLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(Llaveusuario)
+                .addContainerGap(783, Short.MAX_VALUE))
         );
         dpnEscritorioLayout.setVerticalGroup(
             dpnEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 407, Short.MAX_VALUE)
+            .addGroup(dpnEscritorioLayout.createSequentialGroup()
+                .addComponent(Llaveusuario)
+                .addGap(0, 393, Short.MAX_VALUE))
         );
+
+        Llaveusuario.getAccessibleContext().setAccessibleName("");
 
         mnuBodega.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/file.png"))); // NOI18N
         mnuBodega.setText("Bodega");
@@ -365,6 +379,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public static javax.swing.JLabel Llaveusuario;
     private javax.swing.JMenuItem Temporada;
     private javax.swing.JDesktopPane dpnEscritorio;
     private javax.swing.JMenuBar jMenuBar1;

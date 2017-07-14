@@ -565,13 +565,27 @@ public class FrmProducto extends javax.swing.JInternalFrame {
     
     private void btn_grabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_grabarActionPerformed
 
-        if(validar_formulario()){
+            if(validar_formulario()){
 
             boolean resp = false;
             Producto prd;
 
-            prd = new Producto(0, txt_nsn.getText(),txtnombre.getText(), txt_descripcion.getText(), txt_parte.getText()
-                        , Integer.parseInt(txt_stock.getText()), Integer.parseInt(txt_valor.getText()), txt_ubicacion.getText(),"","","",1);
+            String numeroparte= txt_parte.getText();
+            
+            prd = new Producto(
+                    0, 
+                    txt_nsn.getText(),
+                    txtnombre.getText(), 
+                    txt_descripcion.getText(), 
+                    txt_parte.getText(), 
+                    Integer.parseInt(txt_stock.getText()), 
+                    Integer.parseInt(txt_valor.getText()), 
+                    txt_ubicacion.getText(),
+                    "",
+                    "",
+                    "",
+                    1
+            );
             resp = productos.AgregarProducto(prd);
             
             if (resp == false) {
@@ -621,7 +635,7 @@ public class FrmProducto extends javax.swing.JInternalFrame {
         PnlIngreso.setEnabled(true);
         
         btn_Nuevo.setEnabled(false);
-        btn_grabar.setEnabled(true);
+        btn_grabar.setEnabled(false);
         
         btn_Eliminar.setEnabled(true);
         btn_Modificar.setEnabled(true);
