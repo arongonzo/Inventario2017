@@ -23,14 +23,16 @@ public class SolicitudProgramadaDao {
             ResultSet rs = null;
             List<SolicitudProgramada> lista = null;
             
-            cstm = con.prepareCall("{Call pa_AgregarSolicitudProgramada(?,?,?,?,?,?,?)}");
-            cstm.setInt(1, Pgr.getIdSistema());
-            cstm.setInt(2, Pgr.getIdUnidad());
-            cstm.setString(3, Pgr.getpista());
-            cstm.setString(4, Pgr.getmarca());
-            cstm.setString(5, Pgr.getmodelo());
-            cstm.setString(6, Pgr.getfecha());
-            cstm.setInt(7, Pgr.getEstado());
+            cstm = con.prepareCall("{Call pa_AgregarSolicitudProgramada(?,?,?,?,?,?,?,?,?)}");
+            cstm.setInt(1, Pgr.getIdProgramada());
+            cstm.setInt(2, Pgr.getIdSistema());
+            cstm.setInt(3, Pgr.getIdUnidad());
+            cstm.setInt(4, Pgr.getIdUsuario());
+            cstm.setString(5, Pgr.getpista());
+            cstm.setString(6, Pgr.getmarca());
+            cstm.setString(7, Pgr.getmodelo());
+            cstm.setString(8, Pgr.getfecha());
+            cstm.setInt(9, Pgr.getEstado());
             resp = cstm.execute();
             int iUpdCount = cstm.getUpdateCount();
             boolean bMoreResults = true;
@@ -63,13 +65,16 @@ public class SolicitudProgramadaDao {
         try {
             con = conexion.getConection();
             con.setAutoCommit(false);
-            cstm = con.prepareCall("{Call pa_ActualizarSolicitudProgramada(?,?,?,?,?,?,?,?)}");
-            cstm.setInt(1, Pgr.getIdProgramada());    
+            cstm = con.prepareCall("{Call pa_ActualizarSolicitudProgramada(?,?,?,?,?,?,?,?,?)}");
+            cstm.setInt(1, Pgr.getIdProgramada());
             cstm.setInt(2, Pgr.getIdSistema());
             cstm.setInt(3, Pgr.getIdUnidad());
-            cstm.setString(4, Pgr.getpista());
-            cstm.setString(5, Pgr.getmarca());
-            cstm.setString(6, Pgr.getmodelo());
+            cstm.setInt(4, Pgr.getIdUsuario());
+            cstm.setString(5, Pgr.getpista());
+            cstm.setString(6, Pgr.getmarca());
+            cstm.setString(7, Pgr.getmodelo());
+            cstm.setString(8, Pgr.getfecha());
+            cstm.setInt(9, Pgr.getEstado());
             
             resp = cstm.execute();
             con.commit();

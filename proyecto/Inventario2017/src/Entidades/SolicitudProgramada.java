@@ -6,7 +6,7 @@ public class SolicitudProgramada {
     int id_programada;
     int id_sistema;
     int id_unidad;
-    
+    int id_usuario;
     String pista;
     String marca;
     String modelo;
@@ -20,6 +20,7 @@ public class SolicitudProgramada {
     public SolicitudProgramada(int id_programada, 
             int id_sistema, 
             int id_unidad, 
+            int id_usuario,
             String pista,
             String marca,
             String modelo,
@@ -29,10 +30,17 @@ public class SolicitudProgramada {
         this.id_programada = id_programada;
         this.id_sistema = id_sistema;
         this.id_unidad = id_unidad;
+        this.id_usuario = id_usuario;
         this.pista = pista;
         this.marca = marca;
         this.modelo = modelo;
         this.fecha = fecha;
+        this.estado = estado;
+    }
+    
+    public SolicitudProgramada(int id_programada, int Id_usuario, int estado) {
+        this.id_programada = id_programada;
+        this.id_usuario = Id_usuario;
         this.estado = estado;
     }
 
@@ -59,6 +67,14 @@ public class SolicitudProgramada {
 
     public void setIdUnidad(int id_unidad) {
         this.id_unidad = id_unidad;
+    }
+    
+    public int getIdUsuario() {
+        return id_usuario;
+    }
+
+    public void setIdUsuario(int id_usuario) {
+        this.id_usuario = id_usuario;
     }
     
     public String getpista() {

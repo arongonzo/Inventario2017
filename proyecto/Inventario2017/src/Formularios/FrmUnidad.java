@@ -451,7 +451,7 @@ public class FrmUnidad extends javax.swing.JInternalFrame {
     private void btn_grabarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_grabarActionPerformed
 
         if(validar_formulario()){
-            boolean resp = false;
+            boolean resp = true;
             Unidad und;
 
             int id_unidad = Integer.parseInt(lblLlaveUnidad.getText());
