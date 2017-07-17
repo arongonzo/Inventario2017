@@ -1,6 +1,7 @@
 
 package Entidades;
 
+import java.sql.Date;
 
 public class SolicitudProgramada {
     int id_programada;
@@ -10,7 +11,7 @@ public class SolicitudProgramada {
     String pista;
     String marca;
     String modelo;
-    String fecha;
+    Date fecha;
     
     int estado;
     
@@ -24,7 +25,7 @@ public class SolicitudProgramada {
             String pista,
             String marca,
             String modelo,
-            String fecha,
+            Date fecha,
             int estado) 
     {
         this.id_programada = id_programada;
@@ -38,9 +39,13 @@ public class SolicitudProgramada {
         this.estado = estado;
     }
     
-    public SolicitudProgramada(int id_programada, int Id_usuario, int estado) {
+    public SolicitudProgramada(int id_programada, 
+            int Id_usuario, 
+            Date fecha,
+            int estado) {
         this.id_programada = id_programada;
         this.id_usuario = Id_usuario;
+        this.fecha = fecha;
         this.estado = estado;
     }
 
@@ -101,11 +106,11 @@ public class SolicitudProgramada {
         this.modelo = modelo;
     }
     
-    public String getfecha() {
+    public Date getfecha() {
         return fecha;
     }
 
-    public void setfecha(String fecha) {
+    public void setfecha(Date fecha) {
         this.fecha = fecha;
     }
     

@@ -37,9 +37,9 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="lbl_numeroregistro" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
-                      <Component id="btn_nuevo" min="-2" pref="105" max="-2" attributes="0"/>
+                      <Component id="btn_nuevo" min="-2" pref="148" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="btn_finalizar" min="-2" pref="105" max="-2" attributes="0"/>
+                      <Component id="btn_finalizar" min="-2" pref="143" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                   </Group>
                   <Component id="pnlSistema" alignment="1" max="32767" attributes="0"/>
@@ -91,12 +91,12 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="lbl_sistema" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="lbl_marcaequipo" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="lbl_condicionsistema" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="lbl_sistema" max="32767" attributes="0"/>
+                      <Component id="lbl_marcaequipo" alignment="0" max="32767" attributes="0"/>
+                      <Component id="lbl_condicionsistema" alignment="0" pref="209" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="132" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="txt_marcaequipo" alignment="0" max="32767" attributes="0"/>
                       <Component id="cbx_condicionsistema" alignment="0" max="32767" attributes="0"/>
@@ -521,11 +521,11 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="lbl_correo" alignment="0" min="-2" pref="209" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="lbl_correo" alignment="0" pref="209" max="32767" attributes="0"/>
                       <Component id="lbl_nombretecnico" alignment="0" min="-2" max="-2" attributes="0"/>
                       <Component id="lbl_unidad" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblzonal" alignment="0" min="-2" pref="124" max="-2" attributes="0"/>
+                      <Component id="lblzonal" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -709,13 +709,13 @@
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Component id="lblproducto" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="lbl_cantidad" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="lbl_descripcion" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                              <Component id="lbl_descripcion" pref="209" max="32767" attributes="0"/>
+                                              <Component id="lblproducto" max="32767" attributes="0"/>
+                                              <Component id="lbl_cantidad" max="32767" attributes="0"/>
                                           </Group>
-                                          <EmptySpace min="-2" pref="165" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Component id="txt_cantidad" min="-2" pref="287" max="-2" attributes="0"/>
@@ -727,9 +727,9 @@
                                               <Component id="txt_descripcion" alignment="0" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="lbl_nsn" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="191" max="-2" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <Component id="lbl_nsn" min="-2" pref="209" max="-2" attributes="0"/>
+                                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                           <Component id="txt_nsn" min="-2" pref="286" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
                                           <Component id="lbl_numeroparte" min="-2" max="-2" attributes="0"/>
@@ -967,7 +967,7 @@
     </Container>
     <Component class="javax.swing.JButton" name="btn_nuevo">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Nuevo"/>
+        <Property name="text" type="java.lang.String" value="Nueva Soliitud"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_nuevoActionPerformed"/>
@@ -975,7 +975,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btn_finalizar">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Finalizar"/>
+        <Property name="text" type="java.lang.String" value="Finalizar Soliitud"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_finalizarActionPerformed"/>

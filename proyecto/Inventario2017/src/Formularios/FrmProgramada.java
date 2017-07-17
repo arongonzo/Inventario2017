@@ -3,7 +3,7 @@ package Formularios;
 import ModeloTabla.CmbZonal;
 import ModeloTabla.CmbSistema;
 import ModeloTabla.CmbUnidad;
-import ModeloTabla.ModeloTablaProducto;
+import ModeloTabla.ModeloTablaView_Producto;
 import Entidades.Producto;
 import Logico.ProductoLog;
 
@@ -39,7 +39,7 @@ public class FrmProgramada extends javax.swing.JInternalFrame {
 
     ProductoLog productos;
     Producto prd;
-    ModeloTablaProducto mtp;
+    ModeloTablaView_Producto mtp;
     
     SolicitudProgramadaLog programadas;
     SolicitudProgramada pgr;
@@ -100,18 +100,18 @@ public class FrmProgramada extends javax.swing.JInternalFrame {
                 
                 if(objResultSet.getString("id_sistema") != "0")
                 {
-                    cbxsistema.setSelectedItem(objResultSet.getString("id_sistema"));
+                    cbxsistema.setSelectedIndex(Integer.parseInt(objResultSet.getString("id_sistema")));
                 }
                 
                 if(objResultSet.getString("id_zonal") != "0")
                 {
-                    cbxzonal.setSelectedItem(objResultSet.getString("id_zonal"));
+                    cbxzonal.setSelectedIndex(Integer.parseInt(objResultSet.getString("id_zonal")));
                     
                     cargaUnidad();
                     
                     if(objResultSet.getString("id_unidad") != "0")
                     {
-                        cbxunidad.setSelectedItem(objResultSet.getString("id_unidad"));
+                        cbxunidad.setSelectedIndex(Integer.parseInt(objResultSet.getString("id_unidad")));
                     }
                     
                 }
@@ -122,7 +122,11 @@ public class FrmProgramada extends javax.swing.JInternalFrame {
                 
                 if(objResultSet.getString("fecha_solicitud") != null)
                 {
-                   txtfecha.setValue(objResultSet.getString("fecha_solicitud"));
+                  Date date = objResultSet.getDate("fecha_solicitud");
+                  SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+                  String reportDate = df.format(date);
+                  txtfecha.setText(reportDate);    
+                  
                 } else {
                     txtfecha.setValue(new Date());
                 }
@@ -300,7 +304,7 @@ public class FrmProgramada extends javax.swing.JInternalFrame {
 
         lblfecha.setText("Fecha");
 
-        txtfecha.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yy"))));
+        txtfecha.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
 
         lblsistema.setText("Sistema");
 
@@ -743,13 +747,21 @@ public class FrmProgramada extends javax.swing.JInternalFrame {
     
     
     private void btn_nuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_nuevoActionPerformed
+        try {
         
         int id_usuario = Integer.parseInt(Inventario.global_llaveusuario);
         
         int id_programada = 0;
         SolicitudProgramada Pgr;
-                
-        Pgr = new SolicitudProgramada(0,id_usuario, 2);
+        
+        SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
+        
+        Date d = f.parse(txtfecha.getText());
+        long milliseconds = d.getTime();
+        
+        java.sql.Date fecha = new java.sql.Date(milliseconds);
+        
+        Pgr = new SolicitudProgramada(0,id_usuario, fecha, 2);
         id_programada = programadas.AgregarProgramada(Pgr);
                 
         if (id_programada != 0) {
@@ -766,14 +778,18 @@ public class FrmProgramada extends javax.swing.JInternalFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Dato no Agregdo");
             }
-       
+        
+       } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_btn_nuevoActionPerformed
 
     private void activarProducto()
     {
         pnlgrid.setEnabled(true);
         pnlproducto.setEnabled(true);
-        
+    
+        lblllaveproducto.setText("");
         txt_nsn.setText("");
         txt_producto.setText("");
         txt_cantidad.setText("");
@@ -781,8 +797,8 @@ public class FrmProgramada extends javax.swing.JInternalFrame {
         txt_numeroparte.setText("");
         
         txt_nsn.setEnabled(true);
-        txt_producto.setEnabled(false);
-        txt_cantidad.setEnabled(false);
+        txt_producto.setEnabled(true);
+        txt_cantidad.setEnabled(true);
         txt_descripcion.setEnabled(false);
         txt_numeroparte.setEnabled(false);
         
@@ -790,7 +806,6 @@ public class FrmProgramada extends javax.swing.JInternalFrame {
         btn_agregar.setEnabled(false);
         btn_eliminar.setEnabled(false);
         btn_limpiar.setEnabled(false);
-        
         
     }
     
@@ -823,10 +838,19 @@ public class FrmProgramada extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtmodeloActionPerformed
 
     private void btn_finalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_finalizarActionPerformed
+
+        try {
         
         if(validar_formulario()){
 
             boolean blx_estado = true;
+            
+            SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
+        
+            Date d = f.parse(txtfecha.getText());
+            long milliseconds = d.getTime();
+        
+            java.sql.Date fecha = new java.sql.Date(milliseconds);
             
             int id_programada = Integer.parseInt(lblllaveprogramada.getText());
             SolicitudProgramada Pgr;
@@ -839,7 +863,7 @@ public class FrmProgramada extends javax.swing.JInternalFrame {
             CmbUnidad itemsU = (CmbUnidad)cbxunidad.getSelectedItem();
             int id_unidad = Integer.parseInt(itemsU.getID());
             
-            String fecha = txtfecha.getText();
+
             String pista = txtpista.getText();
             String marca = txtmarca.getText();
             String modelo = txtmodelo.getText();
@@ -851,6 +875,17 @@ public class FrmProgramada extends javax.swing.JInternalFrame {
                 lblllaveprogramada.setText(String.valueOf(id_programada));
                 JOptionPane.showMessageDialog(null, "Solicitud Anual Finalizada con Exito");
                 Limpiar();
+                lblllaveproducto.setText("");
+                lblllaveprogramada.setText("");
+                lblllaveprogramadadetalle.setText("");
+                
+                pnlgrid.setEnabled(false);
+                pnlinfo.setEnabled(false);
+                pnlproducto.setEnabled(false);
+                
+                LimpiarTabla();
+                
+                
             } else {
                 JOptionPane.showMessageDialog(null, "Dato no Agregdo");
             }
@@ -859,17 +894,22 @@ public class FrmProgramada extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Debe Ingresar toda la informacion solicitada para continuar");
         }
         
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_btn_finalizarActionPerformed
 
     private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
         
-        prd = ((ModeloTablaProducto) jTable2.getModel()).DameProducto(jTable2.getSelectedRow());
+        prd = ((ModeloTablaView_Producto) jTable2.getModel()).DameProducto(jTable2.getSelectedRow());
 
-        txt_producto.setEditable(true);
-        txt_nsn.setEditable(true);
-        txt_numeroparte.setEditable(true);
-        txt_descripcion.setEditable(true);
+        /*
+        txt_producto.setEditable(false);
+        txt_nsn.setEditable(false);
+        txt_numeroparte.setEditable(false);
+        txt_descripcion.setEditable(false);
         txt_cantidad.setEditable(true);
+        */
         
         lblllaveproducto.setText(String.valueOf(prd.getIdproducto()));
         
@@ -889,16 +929,17 @@ public class FrmProgramada extends javax.swing.JInternalFrame {
         btn_buscarproducto.setEnabled(true);
         btn_eliminar.setEnabled(false);
         btn_limpiar.setEnabled(true);
-                
 
     }//GEN-LAST:event_jTable2MouseClicked
 
     private void btn_limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_limpiarActionPerformed
+
         txt_producto.setEditable(true);
         txt_nsn.setEditable(true);
         txt_numeroparte.setEditable(true);
-        txt_descripcion.setEditable(true);
-        txt_cantidad.setEditable(true);
+        
+        txt_descripcion.setEditable(false);
+        txt_cantidad.setEditable(false);
         
         lblllaveproducto.setText("");
         lblllaveprogramadadetalle.setText("");
@@ -912,8 +953,9 @@ public class FrmProgramada extends javax.swing.JInternalFrame {
         txt_producto.setEnabled(true);
         txt_nsn.setEnabled(true);   
         txt_numeroparte.setEnabled(true);
-        txt_descripcion.setEnabled(true);
-        txt_cantidad.setEnabled(true);
+        
+        txt_descripcion.setEnabled(false);
+        txt_cantidad.setEnabled(false);
         
         btn_agregar.setEnabled(false);
         btn_nuevo.setEnabled(true);
@@ -939,8 +981,18 @@ public class FrmProgramada extends javax.swing.JInternalFrame {
     
     
     private void btn_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarActionPerformed
+
+        try {
+        
         if(validar_formulario_producto()){
 
+            SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
+        
+            Date d = f.parse(txtfecha.getText());
+            long milliseconds = d.getTime();
+
+            java.sql.Date fecha = new java.sql.Date(milliseconds);
+            
             boolean blx_estado = true;
             boolean resp = true;
             SolicitudProgramadaDetalle Pgrd;
@@ -956,35 +1008,37 @@ public class FrmProgramada extends javax.swing.JInternalFrame {
             CmbUnidad itemsU = (CmbUnidad)cbxunidad.getSelectedItem();
             int id_unidad = Integer.parseInt(itemsU.getID());
             
-            String fecha = txtfecha.getText();
             String pista = txtpista.getText();
             String marca = txtmarca.getText();
             String modelo = txtmodelo.getText();
 
-            Pgr = new SolicitudProgramada(id_programada,id_sistema, id_unidad, id_usuario, pista, marca, modelo, fecha, 1);
+            Pgr = new SolicitudProgramada(id_programada,id_sistema, id_unidad, id_usuario, pista, marca, modelo, fecha, 2);
             blx_estado = programadas.UpdateProgramada(Pgr);
-            
             
             int id_programado = Integer.parseInt(lblllaveprogramada.getText());
             int id_producto = Integer.parseInt(lblllaveproducto.getText());
             int cantidad = Integer.parseInt(txt_cantidad.getText());
             
-            
-            
-                Pgrd = new SolicitudProgramadaDetalle(0,id_programado, id_producto, cantidad);
-                resp = programadasdetalle.AgregarProgramada(Pgrd);
+            Pgrd = new SolicitudProgramadaDetalle(0,id_programado, id_producto, cantidad);
+            resp = programadasdetalle.AgregarProgramada(Pgrd);
           
 
             if (resp == false) {
                 JOptionPane.showMessageDialog(null, "Dato Agregado");
+                activarProducto();
                 ListarTablaproducto();
                 ListarTabla();
-                activarProducto();
+                
             } else {
                 JOptionPane.showMessageDialog(null, "Dato no Agregdo");
             }
 
         }
+        
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
     }//GEN-LAST:event_btn_agregarActionPerformed
 
     private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
@@ -1012,15 +1066,35 @@ public class FrmProgramada extends javax.swing.JInternalFrame {
         jTable1.getRowSorter();
     }
     
+    private void LimpiarTabla() {
+    
+        
+        List<SolicitudProgramadaDetalle> listas = null;
+        mtpd = new ModeloTablaProramadaDetalle(listas);
+        
+        jTable1.setModel(mtpd);
+        jTable1.getRowSorter();
+    
+        
+        List<Producto> lista = null;
+        mtp = new ModeloTablaView_Producto(lista);
+        
+        jTable2.setModel(mtp);
+        jTable2.getRowSorter();
+    
+        
+       jTable1.setVisible(false);
+       jTable2.setVisible(false);
+    }
+    
     private void ListarTablaproducto() {
+        
         String filtroNSN = txt_nsn.getText();
         String filtroParte = txt_numeroparte.getText();
+        String producto = txt_producto.getText();
         
-        List<Producto> listas = productos.listado(0,filtroNSN , "", filtroParte);
-        mtp = new ModeloTablaProducto(listas);
-        
-        /*List<Usuario> listas = usuarios.listado(filtroNSN);
-        mtp = new ModeloTablaUsuario(listas);*/
+        List<Producto> listas = productos.listado(0, filtroNSN , filtroParte, producto);
+        mtp = new ModeloTablaView_Producto(listas);
         
         jTable2.setModel(mtp);
         jTable2.getRowSorter();

@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
 
 public class SolicitudProgramadaDao {
     
@@ -31,7 +32,7 @@ public class SolicitudProgramadaDao {
             cstm.setString(5, Pgr.getpista());
             cstm.setString(6, Pgr.getmarca());
             cstm.setString(7, Pgr.getmodelo());
-            cstm.setString(8, Pgr.getfecha());
+            cstm.setDate(8, Pgr.getfecha());
             cstm.setInt(9, Pgr.getEstado());
             resp = cstm.execute();
             int iUpdCount = cstm.getUpdateCount();
@@ -73,7 +74,7 @@ public class SolicitudProgramadaDao {
             cstm.setString(5, Pgr.getpista());
             cstm.setString(6, Pgr.getmarca());
             cstm.setString(7, Pgr.getmodelo());
-            cstm.setString(8, Pgr.getfecha());
+            cstm.setDate(8, Pgr.getfecha());
             cstm.setInt(9, Pgr.getEstado());
             
             resp = cstm.execute();
@@ -83,7 +84,7 @@ public class SolicitudProgramadaDao {
         }finally{
             conexion.Cerrar1(con, cstm);
         }
-        return resp;
+            return resp;
     }
 
     public boolean DeleteProgramada(SolicitudProgramada Pgr) {
