@@ -83,7 +83,7 @@ public class SolicitudRepuestoDetalleDao {
         try {
             lista = new ArrayList<>();
             con = conexion.getConection();
-            cstm = con.prepareCall("{Call pa_ListarSolicitudRepuestoDetalle(?)}");
+                cstm = con.prepareCall("{Call pa_ListarSolicitudRepuestoDetalle(?)}");
             cstm.setInt(1, id_SolicitudRepuesto);
             
             
@@ -93,8 +93,8 @@ public class SolicitudRepuestoDetalleDao {
                 
                 Srd = new SolicitudRepuestoDetalle();
                 
-                Srd.setIdRepuestoDetalle(rs.getInt("id_detalleprogramada"));
-                Srd.setIdSolicitudRepuesto(rs.getInt("id_programada"));
+                Srd.setIdRepuestoDetalle(rs.getInt("id_detallerepuesto"));
+                Srd.setIdSolicitudRepuesto(rs.getInt("id_solicitudrespuesto"));
                 Srd.setIdProducto(rs.getInt("id_producto"));
                 Srd.setCantidad(rs.getInt("cantidad"));
 

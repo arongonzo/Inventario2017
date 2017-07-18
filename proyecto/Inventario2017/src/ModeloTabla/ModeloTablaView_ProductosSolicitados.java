@@ -7,7 +7,7 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 public class ModeloTablaView_ProductosSolicitados extends AbstractTableModel {
-    String[] columnas = {"N.S.N", "Producto","Descripcion", "Nº Parte", "Cantidad solicitda", "Disponible"};
+    String[] columnas = {"N.S.N", "Producto","Descripcion", "Nº Parte", "Cantidad Programada"};
     public List<View_ProductosSolicitados> view = new ArrayList<>();
 
     public ModeloTablaView_ProductosSolicitados(List<View_ProductosSolicitados> viewProducto) {
@@ -48,9 +48,7 @@ public class ModeloTablaView_ProductosSolicitados extends AbstractTableModel {
             case 4:    
                 resp = view.get(rowIndex).getCantidad();
                 break;
-            case 5:    
-                resp = view.get(rowIndex).getCantidadDisponible();
-                break;
+            
         }
         
         return resp;

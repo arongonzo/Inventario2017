@@ -1,13 +1,15 @@
 
 package Entidades;
 
+import java.sql.Date;
 
 public class SolicitudRepuesto {
     int id_solicitudRepuesto;
     int id_temporada;
     String id_comercial;
     int id_unidad;
-    String fecha_creacion;
+    int id_usuario;
+    Date fecha_creacion;
     String nombre_tecnico;
     String correo_electronico;
     String Anexo;
@@ -17,23 +19,34 @@ public class SolicitudRepuesto {
     String modelo_equipo;
     String numero_Serie;
     int id_fallacomponente;
+    String fallacomponente;
     String sintoma_falla;
     String solicutus_orden_trabajo;
-    String fecha_solicitud;
+    Date fecha_solicitud;
     int id_prioridad;
-    int id_prioridad_normal;
-    int id_propiedad_urgente;
+    String DetallePrioridad;
     int estado;
-	
     
     public SolicitudRepuesto() {
+    }
+    
+    public SolicitudRepuesto(int id_solicitudRepuesto,
+            int id_usuario,
+            Date fecha_creacion,
+            int estado) 
+    {
+        this.id_solicitudRepuesto = id_solicitudRepuesto;
+        this.id_usuario = id_usuario;
+        this.fecha_creacion = fecha_creacion;
+        this.estado = estado;
     }
 
     public SolicitudRepuesto(int id_solicitudRepuesto,
     int id_temporada,
     String id_comercial,
     int id_unidad,
-    String fecha_creacion,
+    int id_usuario,
+    Date fecha_creacion,
     String nombre_tecnico,
     String correo_electronico,
     String Anexo,
@@ -43,18 +56,19 @@ public class SolicitudRepuesto {
     String modelo_equipo,
     String numero_Serie,
     int id_fallacomponente,
+    String fallacomponente,
     String sintoma_falla,
     String solicutus_orden_trabajo,
-    String fecha_solicitud,
+    Date fecha_solicitud,
     int id_prioridad,
-    int id_prioridad_normal,
-    int id_propiedad_urgente,
+    String DetallePrioridad,
     int estado) 
     {
         this.id_solicitudRepuesto = id_solicitudRepuesto;
         this.id_temporada = id_temporada;
         this.id_comercial = id_comercial;
         this.id_unidad = id_unidad;
+        this.id_usuario = id_usuario;
         this.fecha_creacion = fecha_creacion;
         this.nombre_tecnico = nombre_tecnico;
         this.correo_electronico = correo_electronico;
@@ -65,16 +79,18 @@ public class SolicitudRepuesto {
         this.modelo_equipo = modelo_equipo;
         this.numero_Serie  = numero_Serie;
         this.id_fallacomponente = id_fallacomponente;
+        this.fallacomponente = fallacomponente;
+        
         this.sintoma_falla = sintoma_falla;
         this.solicutus_orden_trabajo = solicutus_orden_trabajo;
         this.fecha_solicitud = fecha_solicitud;
         this.id_prioridad = id_prioridad;
-        this.id_prioridad_normal = id_prioridad_normal;
-        this.id_propiedad_urgente = id_propiedad_urgente;
+        this.DetallePrioridad = DetallePrioridad;
+        
         this.estado = estado;
     }
 
-    public SolicitudRepuesto(String fecha_creacion)
+    public SolicitudRepuesto(Date fecha_creacion)
     {
         this.fecha_creacion = fecha_creacion;
         
@@ -103,16 +119,23 @@ public class SolicitudRepuesto {
     }
     
     public int getIdUnidad() {
-        return id_temporada;
+        return id_unidad;
     }
     public void setIdUnidad(int id_unidad) {
         this.id_unidad = id_unidad;
     }
+
+    public int getIdUsuario() {
+        return id_usuario;
+    }
+    public void setIdUsuario(int id_usuario) {
+        this.id_usuario = id_usuario;
+    }
     
-    public String getFechaCreacion() {
+    public Date getFechaCreacion() {
         return fecha_creacion;
     }
-    public void setFechaCreacion(String fecha_creacion) {
+    public void setFechaCreacion(Date fecha_creacion) {
         this.fecha_creacion = fecha_creacion;
     }
     
@@ -178,6 +201,14 @@ public class SolicitudRepuesto {
     public void setIdFallaComponente(int id_fallacomponente) {
         this.id_fallacomponente = id_fallacomponente;
     }
+ 
+    public String getFallaComponente() {
+        return fallacomponente;
+    }
+    
+    public void setFallaComponente(String fallacomponente) {
+        this.fallacomponente = fallacomponente;
+    }
     
     public String getSintomaFalla() {
         return sintoma_falla;
@@ -193,10 +224,10 @@ public class SolicitudRepuesto {
         this.solicutus_orden_trabajo = solicutus_orden_trabajo;
     }
     
-    public String getFechaSolicitud() {
+    public Date getFechaSolicitud() {
         return fecha_solicitud;
     }
-    public void setFechaSolicitud(String fecha_solicitud) {
+    public void setFechaSolicitud(Date fecha_solicitud) {
         this.fecha_solicitud = fecha_solicitud;
     }
     
@@ -207,18 +238,11 @@ public class SolicitudRepuesto {
         this.id_prioridad = id_prioridad;
     }
     
-    public int getIdPrioridadNormal() {
-        return id_prioridad_normal;
+    public String getDetallePrioridad() {
+        return DetallePrioridad;
     }
-    public void setIdPrioridadNormal(int id_prioridad_normal) {
-        this.id_prioridad_normal = id_prioridad_normal;
-    }
-    
-    public int getIdPropiedadUrgente() {
-        return id_propiedad_urgente;
-    }
-    public void setIdPropiedadUrgente(int id_propiedad_urgente) {
-        this.id_propiedad_urgente = id_propiedad_urgente;
+    public void setDetallePrioridad(String DetallePrioridad) {
+        this.DetallePrioridad = DetallePrioridad;
     }
     
     public int getEstado() {

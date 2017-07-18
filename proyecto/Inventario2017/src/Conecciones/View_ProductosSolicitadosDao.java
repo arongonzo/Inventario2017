@@ -19,7 +19,7 @@ public class View_ProductosSolicitadosDao {
         try {
             lista = new ArrayList<>();
             con = conexion.getConection();
-            cstm = con.prepareCall("{Call pa_ListarSolicitudProgramada(?,?)}");
+            cstm = con.prepareCall("{Call pa_ListarSolicitudProgramada_productos(?,?)}");
             cstm.setInt(1, id_sistema);
             cstm.setInt(2, id_unidad);
             
@@ -46,7 +46,7 @@ public class View_ProductosSolicitadosDao {
                 Pgr.setpista(rs.getString("pista"));
                 Pgr.setmarca(rs.getString("marca"));
                 Pgr.setmodelo(rs.getString("modelo"));
-                Pgr.setfecha(rs.getString("fecha"));
+                Pgr.setfecha(rs.getString("fecha_solicitud"));
                 
                 lista.add(Pgr);
             }
