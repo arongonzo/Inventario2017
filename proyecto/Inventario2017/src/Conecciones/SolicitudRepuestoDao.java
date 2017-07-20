@@ -9,7 +9,7 @@ import java.util.List;
 
 public class SolicitudRepuestoDao {
     
-     Coneccion conexion = new Coneccion();
+    Coneccion conexion = new Coneccion();
 
     public int AgregarRepuesto(SolicitudRepuesto Srp) {
         Connection con = null;

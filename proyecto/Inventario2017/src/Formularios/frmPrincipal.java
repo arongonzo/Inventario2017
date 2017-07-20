@@ -39,7 +39,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         mnuBodega = new javax.swing.JMenu();
         mnuproductos = new javax.swing.JMenuItem();
         mnuDespacho = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        mnudespachoproducto = new javax.swing.JMenuItem();
         mnusolicitadprog = new javax.swing.JMenu();
         menuprogramada = new javax.swing.JMenuItem();
         mnurespuesto = new javax.swing.JMenuItem();
@@ -106,13 +106,13 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         mnuDespacho.setText("Despacho");
 
-        jMenuItem1.setText("Despacho de Productos");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        mnudespachoproducto.setText("Despacho de Productos");
+        mnudespachoproducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                mnudespachoproductoActionPerformed(evt);
             }
         });
-        mnuDespacho.add(jMenuItem1);
+        mnuDespacho.add(mnudespachoproducto);
 
         jMenuBar1.add(mnuDespacho);
 
@@ -327,9 +327,11 @@ public class frmPrincipal extends javax.swing.JFrame {
         misprogramas.show();
     }//GEN-LAST:event_menuprogramadaActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    private void mnudespachoproductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnudespachoproductoActionPerformed
+        FrmDespacho misDespacho = new FrmDespacho();
+        dpnEscritorio.add(misDespacho);
+        misDespacho.show();
+    }//GEN-LAST:event_mnudespachoproductoActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         // TODO add your handling code here:
@@ -383,7 +385,6 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem Temporada;
     private javax.swing.JDesktopPane dpnEscritorio;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
@@ -400,6 +401,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem mnuUsuarios;
     private javax.swing.JMenuItem mnuZonal;
     private javax.swing.JMenu mnucompras;
+    private javax.swing.JMenuItem mnudespachoproducto;
     private javax.swing.JMenu mnuinformes;
     private javax.swing.JMenuItem mnuproductos;
     private javax.swing.JMenuItem mnurespuesto;
