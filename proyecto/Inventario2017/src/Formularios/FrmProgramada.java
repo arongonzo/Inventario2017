@@ -133,8 +133,8 @@ public class FrmProgramada extends javax.swing.JInternalFrame {
 
                 btn_nuevo.setEnabled(false);
                 btn_buscarproducto.setEnabled(true);
-                btn_agregar.setEnabled(true);
-                btn_eliminar.setEnabled(true);
+                btn_agregar.setEnabled(false);
+                btn_eliminar.setEnabled(false);
                 btn_limpiar.setEnabled(true);
                 btn_finalizar.setEnabled(true);
 
@@ -188,7 +188,7 @@ public class FrmProgramada extends javax.swing.JInternalFrame {
             }
             
             DefaultComboBoxModel modeloUnidad = new DefaultComboBoxModel();
-            modeloUnidad.addElement(new CmbSistema("Seleccione Unidad", "0"));
+            modeloUnidad.addElement(new CmbUnidad("Seleccione Unidad", "0"));
             cbxunidad.setModel(modeloUnidad);//con esto lo agregamos al objeto al jcombobox
             cbxunidad.setEnabled(false);
          } 
@@ -903,14 +903,6 @@ public class FrmProgramada extends javax.swing.JInternalFrame {
         
         prd = ((ModeloTablaView_Producto) jTable2.getModel()).DameProducto(jTable2.getSelectedRow());
 
-        /*
-        txt_producto.setEditable(false);
-        txt_nsn.setEditable(false);
-        txt_numeroparte.setEditable(false);
-        txt_descripcion.setEditable(false);
-        txt_cantidad.setEditable(true);
-        */
-        
         lblllaveproducto.setText(String.valueOf(prd.getIdproducto()));
         
         txt_producto.setText(prd.getNombre());
