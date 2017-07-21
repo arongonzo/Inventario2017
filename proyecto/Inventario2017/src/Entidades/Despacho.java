@@ -34,7 +34,7 @@ public class Despacho {
         this.estado = estado;
     }
 
-    public Despacho(int id_solicitudRepuesto,
+    public Despacho(int id_despacho,
     int id_temporada,
     String id_comercial,
     int id_unidad,

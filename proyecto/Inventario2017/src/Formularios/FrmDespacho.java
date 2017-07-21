@@ -14,10 +14,9 @@ import Logico.View_ProductoDespachoSolicitadoLog;
 import Entidades.View_ProductoDespachoSolicitado;
 
 import ModeloTabla.ModeloTablaRepuestoDetalle;
-
-import Entidades.SolicitudRepuestoDetalle;
-import Logico.SolicitudProgramadaDetalleLog;
-import Logico.SolicitudRepuestoDetalleLog;
+import Entidades.DespachoDetalle;
+import Logico.DespachoDetalleLog;
+import ModeloTabla.ModeloTablaDespachoDetalle;
 
 import clases.Inventario;
 
@@ -44,12 +43,12 @@ import org.apache.poi.ss.usermodel.Cell;
 
 public class FrmDespacho extends javax.swing.JInternalFrame {
 
-    DespachoLog despacholg;
-    Despacho dsp;
+    DespachoLog cl_despacho_log;
+    Despacho cl_despacho;
 
-    SolicitudRepuestoDetalleLog repuestodetalle;
-    SolicitudRepuestoDetalle spd;
-    ModeloTablaRepuestoDetalle mtrd;
+    DespachoDetalleLog cl_despachodetalle_log;
+    DespachoDetalle cl_despachodetalle;
+    ModeloTablaDespachoDetalle mt_dd;
     
     View_ProductoDespachoSolicitado viewp;
     View_ProductoDespachoSolicitadoLog view_producto;
@@ -58,9 +57,9 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
     public FrmDespacho() {
         
         initComponents();
-        despacholg = new DespachoLog();
+        cl_despacho_log = new DespachoLog();
         
-        repuestodetalle = new SolicitudRepuestoDetalleLog();
+        cl_despachodetalle_log = new DespachoDetalleLog();
         view_producto = new View_ProductoDespachoSolicitadoLog();
         
         CargarCombo();
@@ -153,12 +152,12 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
     
     private void ListarTabla() {
         
-        int llaveRepuesto = Integer.parseInt(lbl_LlaveDespacho.getText());
+        int llavedespacho = Integer.parseInt(lbl_LlaveDespacho.getText());
         
-        List<SolicitudRepuestoDetalle> listas = repuestodetalle.listado(llaveRepuesto);
-        mtrd = new ModeloTablaRepuestoDetalle(listas);
+        List<DespachoDetalle> listas = cl_despachodetalle_log.listado(llavedespacho);
+        mt_dd = new ModeloTablaDespachoDetalle(listas);
         
-        jTable1.setModel(mtrd);
+        jTable1.setModel(mt_dd);
         jTable1.getRowSorter();
         
     }
@@ -262,10 +261,10 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
     private void LimpiarTabla() {
     
         
-        List<SolicitudRepuestoDetalle> listas = null;
-        mtrd = new ModeloTablaRepuestoDetalle(listas);
+        List<DespachoDetalle> listas = null;
+        mt_dd = new ModeloTablaDespachoDetalle(listas);
         
-        jTable1.setModel(mtrd);
+        jTable1.setModel(mt_dd);
         jTable1.getRowSorter();
     
         
@@ -712,11 +711,12 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_nuevo)
-                    .addComponent(btn_finalizar)
-                    .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lbl_idcomercio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btn_nuevo)
+                        .addComponent(btn_finalizar)
+                        .addComponent(lbl_idcomercio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlDespacho, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -764,7 +764,7 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
                 java.sql.Date fecha = new java.sql.Date(milliseconds);
 
                 dsp = new Despacho(0, id_usuario, fecha, 2);
-                id_despacho = despacholg.AgregarRepuesto(dsp);
+                id_despacho = cl_despacho_log.AgregarDespacho(dsp);
 
                 if (id_despacho != 0) {
 
@@ -1024,8 +1024,24 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
         btn_limpiar.setEnabled(true);
     }//GEN-LAST:event_jTable2MouseClicked
 
+    private boolean validar_formulario_producto()
+    {
+        boolean validar = false;
+        
+        if(txt_nsn.getText().trim()=="")
+        {
+            JOptionPane.showMessageDialog(null, "Todos los campo en Negrita son de acesso obligatorio");
+            return false;
+        } 
+        else 
+        {
+            validar = true;
+        }
+        return validar;
+    }
+    
     private void btn_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_agregarActionPerformed
-/*
+
         try {
 
             if(validar_formulario_producto()){
@@ -1040,55 +1056,37 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
                 boolean blx_estado = true;
                 boolean resp = true;
 
-                SolicitudRepuestoDetalle Pgrd;
+                DespachoDetalle cl_despachodetalle;
 
-                int id_repuesto = Integer.parseInt(lbl_LlaveRepuesto.getText());
-                SolicitudRepuesto Pgr;
+                int id_despacho = Integer.parseInt(lbl_LlaveDespacho.getText());
+                Despacho cl_despacho;
 
-                String id_comercial = lbl_numeroregistro.getText();
+                String id_comercial = lbl_idcomercio.getText();
 
                 int id_usuario = Integer.parseInt(Inventario.global_llaveusuario);
 
                 CmbUnidad itemsU = (CmbUnidad)cbx_unidad.getSelectedItem();
                 int id_unidad = Integer.parseInt(itemsU.getID());
 
-                cmbCondicionSistema itemsC = (cmbCondicionSistema)cbx_condicionsistema.getSelectedItem();
-                int id_condicion = Integer.parseInt(itemsU.getID());
+                String stx_nombrerecibe = txt_nombretecnico.getText();
+                String stx_correorecibe = txt_correo.getText();
+                String stx_anexorecibe = txt_anexo.getText();
 
-                String stx_nombretecnico = txt_nombretecnico.getText();
-                String stx_correo = txt_correo.getText();
-                String stx_anexo = txt_anexo.getText();
-
-                CmbSistema itemsS = (CmbSistema)cbx_sistema.getSelectedItem();
+                CmbSistema itemsS = (CmbSistema)cbxsistema.getSelectedItem();
                 int id_sistema = Integer.parseInt(itemsS.getID());
-
-                String stx_marca = txt_marcaequipo.getText();
-                String stx_modelo = txt_modeloequipo.getText();
-                String stx_numeroserie = txt_numeroserie.getText();
-
-                String stx_fallacomponente = txt_fallaComponente.getText();
-                String stx_sintoma = txt_sintomafalla.getText();
-                String stx_numero = txt_numeroorden.getText();
-
-                Date ds = f.parse(txt_fechasolicitud.getText());
-                long millisecondss = ds.getTime();
-
-                java.sql.Date fechasolicitud = new java.sql.Date(millisecondss);
 
                 CmbPrioridad itemsP = (CmbPrioridad)cbx_prioridad.getSelectedItem();
                 int id_prioridad = Integer.parseInt(itemsP.getID());
 
-                String stx_detalle = txt_detalle.getText();
+                cl_despacho = new Despacho(id_despacho,0,id_comercial, id_unidad, id_usuario, fecha, stx_nombrerecibe, stx_correorecibe , stx_anexorecibe , id_sistema, id_prioridad, 2);
 
-                Pgr = new SolicitudRepuesto(id_repuesto,0,id_comercial, id_unidad, id_usuario, fecha, stx_nombretecnico,stx_correo, stx_anexo, id_sistema, stx_marca, id_condicion, stx_modelo, stx_numeroserie, 0, stx_fallacomponente, stx_sintoma, stx_numero, fechasolicitud, id_prioridad, stx_detalle, 2);
-
-                blx_estado = repuesto.UpdateRepuesto(Pgr);
+                blx_estado = cl_despacho_log.UpdateDespacho(cl_despacho);
 
                 int id_producto = Integer.parseInt(lblllaveproducto.getText());
                 int cantidad = Integer.parseInt(txt_cantidad.getText());
 
-                Pgrd = new SolicitudRepuestoDetalle(0,id_repuesto, id_producto, cantidad);
-                resp = repuestodetalle.AgregarRepuesto(Pgrd);
+                cl_despachodetalle = new DespachoDetalle(0,id_despacho, id_producto, cantidad, 0);
+                resp = cl_despachodetalle_log.AgregarDespachoDetalle(cl_despachodetalle);
 
                 if (resp == false) {
 
@@ -1154,9 +1152,9 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
 
     private void btn_buscarproductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarproductoActionPerformed
         // TODO add your handling code here:
-       /*
+       
         ListarTablaproducto();
-        */
+        
         btn_agregar.setEnabled(false);
         btn_eliminar.setEnabled(false);
         btn_limpiar.setEnabled(true);
