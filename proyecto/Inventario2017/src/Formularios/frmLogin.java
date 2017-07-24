@@ -21,8 +21,9 @@ import javax.swing.JOptionPane;
 public class frmLogin extends javax.swing.JFrame {
 
     public frmLogin() {
-        setContentPane(new JLabel(new ImageIcon("Images/login.png")));
+        
         initComponents();
+
     }
 
     /**

@@ -100,7 +100,7 @@ public class DespachoDetalleDao {
                 Srd.setIdDespacho(rs.getInt("id_solicitudrespuesto"));
                 Srd.setIdProducto(rs.getInt("id_producto"));
                 Srd.setCantidad(rs.getInt("cantidad"));
-                Srd.setPrecio(rs.getInt("cantidad"));    
+                Srd.setPrecio(rs.getInt("precio"));    
                 
                 Srd.setNsn(rs.getString("nsn_producto"));
                 Srd.setProducto(rs.getString("nombre"));

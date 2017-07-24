@@ -3,11 +3,18 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/samuelgonzalez/proyectos/inventario/proyecto/Inventario2017/src/Formularios/FrmDespacho.java</file>
-            <file>file:/C:/samuelgonzalez/proyectos/inventario/proyecto/Inventario2017/src/Conecciones/DespachoDetalleDao.java</file>
-            <file>file:/C:/samuelgonzalez/proyectos/inventario/proyecto/Inventario2017/src/Entidades/Despacho.java</file>
-            <file>file:/C:/samuelgonzalez/proyectos/inventario/proyecto/Inventario2017/src/Entidades/DespachoDetalle.java</file>
-            <file>file:/C:/samuelgonzalez/proyectos/inventario/proyecto/Inventario2017/src/Formularios/FrmRepuesto.java</file>
+            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/Formularios/FrmDespachos.java</file>
+            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/Logico/DespachoDetaleLog.java</file>
+            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/Entidades/SolicitudRepuesto.java</file>
+            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/Logico/SolicitudRepuestoDetalleLog.java</file>
+            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/Formularios/frmPrincipal.java</file>
+            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/Formularios/FrmCondicionSistema.java</file>
+            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/Formularios/FrmRepuesto.java</file>
+            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/Formularios/frmLogin.java</file>
+            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/Formularios/FrmProducto.java</file>
+            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/Entidades/Despacho.java</file>
+            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/Conecciones/DespachoDetalleDao.java</file>
+            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/Logico/DespachoLog.java</file>
         </group>
     </open-files>
 </project-private>

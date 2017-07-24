@@ -1,4 +1,3 @@
-﻿
 package Formularios;
 
 import ModeloTabla.CmbZonal;
@@ -792,7 +791,7 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
     private void ActivarInfo()
     {
         btn_finalizar.setEnabled(true);
-        btn_nuevo.setEnabled(true);
+        btn_nuevo.setEnabled(false);
         
         txt_nombretecnico.setText("");
         txt_correo.setText("");
@@ -861,49 +860,32 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
                 boolean blx_estado = true;
                 boolean resp = true;
 
-                SolicitudRepuestoDetalle Pgrd;
+                DespachoDetalle cl_despachodetalle;
 
-                int id_repuesto = Integer.parseInt(lbl_LlaveRepuesto.getText());
-                SolicitudRepuesto Pgr;
+                int id_despacho = Integer.parseInt(lbl_LlaveDespacho.getText());
+                Despacho cl_despacho;
 
-                String id_comercial = lbl_numeroregistro.getText();
+                String id_comercial = lbl_idcomercio.getText();
 
                 int id_usuario = Integer.parseInt(Inventario.global_llaveusuario);
 
                 CmbUnidad itemsU = (CmbUnidad)cbx_unidad.getSelectedItem();
                 int id_unidad = Integer.parseInt(itemsU.getID());
 
-                cmbCondicionSistema itemsC = (cmbCondicionSistema)cbx_condicionsistema.getSelectedItem();
-                int id_condicion = Integer.parseInt(itemsU.getID());
+                String stx_nombrerecibe = txt_nombretecnico.getText();
+                String stx_correorecibe = txt_correo.getText();
+                String stx_anexorecibe = txt_anexo.getText();
 
-                String stx_nombretecnico = txt_nombretecnico.getText();
-                String stx_correo = txt_correo.getText();
-                String stx_anexo = txt_anexo.getText();
-
-                CmbSistema itemsS = (CmbSistema)cbx_sistema.getSelectedItem();
+                CmbSistema itemsS = (CmbSistema)cbxsistema.getSelectedItem();
                 int id_sistema = Integer.parseInt(itemsS.getID());
 
-                String stx_marca = txt_marcaequipo.getText();
-                String stx_modelo = txt_modeloequipo.getText();
-                String stx_numeroserie = txt_numeroserie.getText();
-
-                String stx_fallacomponente = txt_fallaComponente.getText();
-                String stx_sintoma = txt_sintomafalla.getText();
-                String stx_numero = txt_numeroorden.getText();
-
-                Date ds = f.parse(txt_fechasolicitud.getText());
-                long millisecondss = ds.getTime();
-
-                java.sql.Date fechasolicitud = new java.sql.Date(millisecondss);
-
-                CmbPrioridad itemsP = (CmbPrioridad)lbl_Prioridad.getSelectedItem();
+                CmbPrioridad itemsP = (CmbPrioridad)cbx_prioridad.getSelectedItem();
                 int id_prioridad = Integer.parseInt(itemsP.getID());
 
-                String stx_detalle = txt_detalle.getText();
 
-                Pgr = new SolicitudRepuesto(id_repuesto,0,id_comercial, id_unidad, id_usuario, fecha, stx_nombretecnico,stx_correo, stx_anexo, id_sistema, stx_marca, id_condicion, stx_modelo, stx_numeroserie, 0, stx_fallacomponente, stx_sintoma, stx_numero, fechasolicitud, id_prioridad, stx_detalle, 1);
+                cl_despacho = new Despacho(id_despacho,0,id_comercial, id_unidad, id_usuario, fecha, stx_nombrerecibe, stx_correorecibe , stx_anexorecibe , id_sistema, id_prioridad, 1);
 
-                blx_estado = repuesto.UpdateRepuesto(Pgr);
+                blx_estado = cl_despacho_log.UpdateDespacho(cl_despacho);
 
                 if (blx_estado == false) {
 
@@ -1096,7 +1078,7 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
 
                     JOptionPane.showMessageDialog(null, "Dato Agregado");
                     activarProducto();
-                    ListarTablaproducto();
+                    ListarTablaBuscar();
                     ListarTabla();
 
                 } else {
@@ -1157,7 +1139,7 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
     private void btn_buscarproductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarproductoActionPerformed
         // TODO add your handling code here:
        
-        ListarTablaproducto();
+        ListarTablaBuscar();
         
         btn_agregar.setEnabled(false);
         btn_eliminar.setEnabled(false);
