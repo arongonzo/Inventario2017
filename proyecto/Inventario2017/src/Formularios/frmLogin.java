@@ -4,9 +4,14 @@ package Formularios;
 import Conecciones.Coneccion;
 import clases.Inventario;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,6 +21,7 @@ import javax.swing.JOptionPane;
 public class frmLogin extends javax.swing.JFrame {
 
     public frmLogin() {
+        setContentPane(new JLabel(new ImageIcon("Images/login.png")));
         initComponents();
     }
 
@@ -38,6 +44,7 @@ public class frmLogin extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Ingreso al sistema");
+        setForeground(java.awt.Color.white);
         setUndecorated(true);
         setResizable(false);
 
