@@ -23,7 +23,7 @@ public class DespachoDetalleDao {
             cstm.setInt(1, Srd.getIdDespacho());
             cstm.setInt(2, Srd.getIdProducto());
             cstm.setInt(3, Srd.getCantidad());
-            cstm.setInt(4, Srd.getPrecio());
+
             
             resp = cstm.execute();
             con.commit();
@@ -96,8 +96,8 @@ public class DespachoDetalleDao {
                 
                 Srd = new DespachoDetalle();
                 
-                Srd.setIdDetalleDespacho(rs.getInt("id_detallerepuesto"));
-                Srd.setIdDespacho(rs.getInt("id_solicitudrespuesto"));
+                Srd.setIdDetalleDespacho(rs.getInt("id_despachodetalle"));
+                Srd.setIdDespacho(rs.getInt("id_despacho"));
                 Srd.setIdProducto(rs.getInt("id_producto"));
                 Srd.setCantidad(rs.getInt("cantidad"));
                 Srd.setPrecio(rs.getInt("precio"));    
@@ -106,7 +106,7 @@ public class DespachoDetalleDao {
                 Srd.setProducto(rs.getString("nombre"));
                 Srd.setDescripcion(rs.getString("descripcion_producto"));
                 Srd.setNumeroparte(rs.getString("n_parte"));
-                Srd.setCantidadDisponible(rs.getInt("disponible"));
+                Srd.setCantidadDisponible(rs.getInt("solicitada"));
                 
                 
                 lista.add(Srd);

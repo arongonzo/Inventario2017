@@ -143,12 +143,17 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
         CmbSistema itemsis = (CmbSistema)cbxsistema.getSelectedItem();
         int id_sistema = Integer.parseInt(itemsis.getID());
         
-        List<View_ProductoDespachoSolicitado> listas = view_producto.listado(id_sistema , id_unidad);
-        view_tabla = new ModeloTablaView_ProductoDespachoSolicitado(listas);
+        if(id_sistema > 0 && id_unidad > 0){
         
-        jTable2.setModel(view_tabla);
-        jTable2.getRowSorter();
-        
+            List<View_ProductoDespachoSolicitado> listas = view_producto.listado(id_sistema , id_unidad);
+
+            int listas.size
+            
+            view_tabla = new ModeloTablaView_ProductoDespachoSolicitado(listas);
+
+            jTable2.setModel(view_tabla);
+            jTable2.getRowSorter();
+        }
     }
     
     private void ListarTabla() {
@@ -335,6 +340,10 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         lbl_idcomercio = new javax.swing.JLabel();
+
+        setClosable(true);
+        setMaximizable(true);
+        setResizable(true);
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel18.setText("SOLICITUD DE DESPACHO");
@@ -775,9 +784,7 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
                     ActivarInfo();
 
                 } else {
-
                     JOptionPane.showMessageDialog(null, "Dato no Agregdo");
-
                 }
             }
         }
@@ -785,7 +792,6 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
         {
             System.out.println(ex.getCause());
         }
-        
     }//GEN-LAST:event_btn_nuevoActionPerformed
 
     private void ActivarInfo()
@@ -845,7 +851,6 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
     
     private void btn_finalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_finalizarActionPerformed
         
-        
         try {
 
             if(validar_formulario_producto()){
@@ -889,16 +894,16 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
 
                 if (blx_estado == false) {
 
-                    JOptionPane.showMessageDialog(null, "Solicitud de Repuesto finalizada");
+                    JOptionPane.showMessageDialog(null, "Despacho de Productos finalizados");
                     Limpiar();
                     CargarCombo();
                     LimpiarTabla();
                     btn_nuevo.setEnabled(true);
+                    lbl_idcomercio.setText("");
 
                 } else {
                     JOptionPane.showMessageDialog(null, "Dato no Agregdo");
                 }
-
             }
 
         } catch (Exception e) {
