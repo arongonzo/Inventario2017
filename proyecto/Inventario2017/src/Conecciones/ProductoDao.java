@@ -24,7 +24,7 @@ public class ProductoDao {
             cstm.setInt(3, Prd.getCantidad());
             cstm.setString(4, Prd.getDescripcion());
             cstm.setString(5, Prd.getN_parte());
-            cstm.setInt(6, Prd.getValor_unitario());            
+            cstm.setDouble(6, Prd.getValor_unitario());            
             cstm.setString(7, Prd.getUbicacion());
             cstm.setString(8, Prd.getUbicacion_detalle());
             resp = cstm.execute();
@@ -51,7 +51,7 @@ public class ProductoDao {
             cstm.setInt(4, Prd.getCantidad());
             cstm.setString(5, Prd.getDescripcion());
             cstm.setString(6, Prd.getN_parte());
-            cstm.setInt(7, Prd.getValor_unitario());            
+            cstm.setDouble(7, Prd.getValor_unitario());            
             cstm.setString(8, Prd.getUbicacion());
             cstm.setString(9, Prd.getUbicacion_detalle());
             
@@ -109,7 +109,7 @@ public class ProductoDao {
                 Prd.setCantidad(rs.getInt("cantidad"));
                 Prd.setDescripcion(rs.getString("descripcion_producto"));
                 Prd.setN_parte(rs.getString("n_parte"));
-                Prd.setValor_unitario(rs.getInt("valor_unitario"));
+                Prd.setValor_unitario(rs.getDouble("valor_unitario"));
                 Prd.setUbicacion(rs.getString("ubicacion"));
                 Prd.setUbicacion_detalle(rs.getString("ubicacion_detalle"));
                 Prd.setAnio_ingreso(rs.getString("anio_Ingreso"));

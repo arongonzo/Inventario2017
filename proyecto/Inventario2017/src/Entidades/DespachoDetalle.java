@@ -12,6 +12,7 @@ public class DespachoDetalle {
     String descripcion;
     String numeroparte;
     int cantidaddisponible;
+    int cantidaddespachada;
     
     public DespachoDetalle() {
     }
@@ -107,5 +108,13 @@ public class DespachoDetalle {
 
     public void setCantidadDisponible(int cantidaddisponible) {
         this.cantidaddisponible = cantidaddisponible;
+    }
+    
+    public int getCantidadDespachada() {
+        return cantidaddespachada;
+    }
+
+    public void setCantidadDespachada(int cantidaddespachada) {
+        this.cantidaddespachada = cantidaddespachada;
     }
 }

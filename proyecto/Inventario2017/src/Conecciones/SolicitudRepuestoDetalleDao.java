@@ -102,7 +102,7 @@ public class SolicitudRepuestoDetalleDao {
                 Srd.setProducto(rs.getString("nombre"));
                 Srd.setDescripcion(rs.getString("descripcion_producto"));
                 Srd.setNumeroparte(rs.getString("n_parte"));
-                Srd.setCantidadDisponible(rs.getInt("disponible"));
+                Srd.setCantidadDisponible(rs.getInt("cantidadsolicitada"));
                 
                 
                 lista.add(Srd);

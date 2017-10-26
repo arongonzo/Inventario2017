@@ -49,6 +49,9 @@ public class ModeloTablaRepuestoDetalle  extends AbstractTableModel {
             case 4:    
                 resp = RepuestoDetalles.get(rowIndex).getCantidad();
                 break;
+            case 5:    
+                resp = RepuestoDetalles.get(rowIndex).getCantidadDisponible();
+                break;
     
         }
         

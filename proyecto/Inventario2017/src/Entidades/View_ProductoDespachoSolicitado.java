@@ -14,6 +14,8 @@ public class View_ProductoDespachoSolicitado {
     String descripcion;
     String numeroparte;
     int cantidaddisponible;
+    int cantidadentregada;
+    
     
     int id_sistema;
     int id_unidad;
@@ -110,6 +112,15 @@ public class View_ProductoDespachoSolicitado {
     public void setCantidadDisponible(int cantidaddisponible) {
         this.cantidaddisponible = cantidaddisponible;
     }
+    
+    public int getCantidadEntregada() {
+        return cantidadentregada;
+    }
+
+    public void setCantidadEntregada(int cantidadentregada) {
+        this.cantidadentregada = cantidadentregada;
+    }
+    
     public int getIdSistema() {
         return id_sistema;
     }

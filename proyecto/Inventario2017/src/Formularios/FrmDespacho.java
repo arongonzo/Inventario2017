@@ -18,13 +18,26 @@ import Entidades.DespachoDetalle;
 import Logico.DespachoDetalleLog;
 import ModeloTabla.ModeloTablaDespachoDetalle;
 
+import java.lang.Object;
+import java.awt.Desktop;
 
 import clases.Inventario;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.PdfContentByte;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.Writer;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -33,6 +46,7 @@ import java.util.*;
 import java.util.TreeMap;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -54,6 +68,8 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
     View_ProductoDespachoSolicitado viewp;
     View_ProductoDespachoSolicitadoLog view_producto;
     ModeloTablaView_ProductoDespachoSolicitado  view_tabla;
+    
+    public static final String DEST = "c:/Reportes/SolicitudDespacho_";
     
     public FrmDespacho() {
         
@@ -101,7 +117,8 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
                     
                     if(objResultSet.getString("id_unidad") != "0")
                     {
-                        cbx_unidad.setSelectedIndex(Integer.parseInt(objResultSet.getString("id_unidad")));
+                        cbx_unidad.getModel().setSelectedItem(new CmbUnidad(objResultSet.getString("nombre_unidad"), objResultSet.getString("id_unidad")));
+                        
                     }
                 }
                 
@@ -132,7 +149,6 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
         {
             System.out.println(ex.getCause());
         }
-        
     }
     
     private void ListarTablaBuscar() {
@@ -143,16 +159,23 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
         CmbSistema itemsis = (CmbSistema)cbxsistema.getSelectedItem();
         int id_sistema = Integer.parseInt(itemsis.getID());
         
+        String filtroNSN = txt_nsn.getText();
+        String filtroParte = txt_numeroparte.getText();
+        String filtroproducto = txt_producto.getText();
+        
         if(id_sistema > 0 && id_unidad > 0){
         
-            List<View_ProductoDespachoSolicitado> listas = view_producto.listado(id_sistema , id_unidad);
+            List<View_ProductoDespachoSolicitado> listas = view_producto.listado(id_sistema , id_unidad,0, filtroNSN, filtroParte, filtroproducto);
 
-            int listas.size
-            
-            view_tabla = new ModeloTablaView_ProductoDespachoSolicitado(listas);
-
-            jTable2.setModel(view_tabla);
-            jTable2.getRowSorter();
+            if(listas.size()  >0){
+                view_tabla = new ModeloTablaView_ProductoDespachoSolicitado(listas);
+                jTable2.setModel(view_tabla);
+                jTable2.getRowSorter();
+            } 
+            else 
+            {
+                JOptionPane.showMessageDialog(null, "No hay Solicitudes para la Unidad y Sistema seleccionado");
+            } 
         }
     }
     
@@ -222,7 +245,7 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
             
         lbl_LlaveDespacho.setText("");
         lblllaveproducto.setText("");
-        lblllaveprogramadadetalle.setText("");
+        lblllavedespachodetalle.setText("");
         
         txt_nombretecnico.setText("");
         txt_correo.setText("");
@@ -279,10 +302,9 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
         
         jTable2.setModel(view_tabla);
         jTable2.getRowSorter();
-    
         
-       jTable1.setVisible(false);
-       jTable2.setVisible(false);
+        jTable1.setVisible(false);
+        jTable2.setVisible(false);
     }
 
     /**
@@ -316,10 +338,8 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
         lbl_Prioridad = new javax.swing.JLabel();
         cbx_prioridad = new javax.swing.JComboBox<>();
         pnlproducto = new javax.swing.JPanel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
         lblllaveproducto = new javax.swing.JLabel();
-        lblllaveprogramadadetalle = new javax.swing.JLabel();
+        lblllavedespachodetalle = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         lbl_numeroparte = new javax.swing.JLabel();
         txt_numeroparte = new javax.swing.JTextField();
@@ -334,8 +354,11 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
         btn_agregar = new javax.swing.JButton();
         btn_eliminar = new javax.swing.JButton();
         btn_limpiar = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         btn_buscarproducto = new javax.swing.JButton();
+        btn_refrescar = new javax.swing.JButton();
         pnlgrid = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -348,6 +371,7 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel18.setText("SOLICITUD DE DESPACHO");
 
+        btn_nuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/btn_nuevo.png"))); // NOI18N
         btn_nuevo.setText("Nuevo Despacho");
         btn_nuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -355,6 +379,7 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
             }
         });
 
+        btn_finalizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/btn_finish.png"))); // NOI18N
         btn_finalizar.setText("Finalizar Despacho");
         btn_finalizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -394,7 +419,7 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
             }
         });
 
-        lbl_sistema.setText("Sistema");
+        lbl_sistema.setText("Sistema / Equipo");
 
         cbxsistema.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbxsistema.addActionListener(new java.awt.event.ActionListener() {
@@ -442,8 +467,8 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
                                             .addComponent(txt_anexo, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(txt_fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
                     .addGroup(pnlDespachoLayout.createSequentialGroup()
-                        .addComponent(lbl_sistema, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(55, 55, 55)
+                        .addComponent(lbl_sistema, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(pnlDespachoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(pnlDespachoLayout.createSequentialGroup()
                                 .addComponent(cbxsistema, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -492,6 +517,39 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
 
         pnlproducto.setBorder(javax.swing.BorderFactory.createTitledBorder("INFORMACION PRODUCTO SOLICITADO"));
 
+        lbl_numeroparte.setText("Numero Parte");
+
+        lbl_nsn.setText("N.S.N");
+
+        lblproducto.setText("Producto");
+
+        lbl_descripcion.setText("Descripción");
+
+        lbl_cantidad.setText("Cantidad");
+
+        btn_agregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/btn_agregar.png"))); // NOI18N
+        btn_agregar.setText("Agregar");
+        btn_agregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_agregarActionPerformed(evt);
+            }
+        });
+
+        btn_eliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/btn_eliminar.png"))); // NOI18N
+        btn_eliminar.setText("Eliminar");
+        btn_eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_eliminarActionPerformed(evt);
+            }
+        });
+
+        btn_limpiar.setText("Limpiar");
+        btn_limpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_limpiarActionPerformed(evt);
+            }
+        });
+
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -507,37 +565,6 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
         });
         jScrollPane4.setViewportView(jTable2);
 
-        lbl_numeroparte.setText("Numero Parte");
-
-        lbl_nsn.setText("N.S.N");
-
-        lblproducto.setText("Producto");
-
-        lbl_descripcion.setText("Descripción");
-
-        lbl_cantidad.setText("Cantidad");
-
-        btn_agregar.setText("Agregar");
-        btn_agregar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_agregarActionPerformed(evt);
-            }
-        });
-
-        btn_eliminar.setText("Eliminar");
-        btn_eliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_eliminarActionPerformed(evt);
-            }
-        });
-
-        btn_limpiar.setText("Limpiar");
-        btn_limpiar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_limpiarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -545,6 +572,7 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(2, 2, 2)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(lbl_nsn, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
@@ -561,11 +589,11 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
                         .addComponent(lbl_cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(txt_cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btn_agregar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(14, 14, 14)
+                        .addComponent(btn_agregar, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btn_eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btn_eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btn_limpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -589,19 +617,31 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
                     .addComponent(lbl_descripcion)
                     .addComponent(txt_descripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_cantidad)
-                    .addComponent(txt_cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btn_agregar)
-                    .addComponent(btn_eliminar)
-                    .addComponent(btn_limpiar))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btn_eliminar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txt_cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lbl_cantidad))
+                    .addComponent(btn_agregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_limpiar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
+        btn_buscarproducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/btn_buscar.png"))); // NOI18N
         btn_buscarproducto.setText("Buscar");
         btn_buscarproducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_buscarproductoActionPerformed(evt);
+            }
+        });
+
+        btn_refrescar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/btn_refresh.png"))); // NOI18N
+        btn_refrescar.setText("Refrescar");
+        btn_refrescar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_refrescarActionPerformed(evt);
             }
         });
 
@@ -610,15 +650,19 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addComponent(btn_buscarproducto, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 16, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_refrescar, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)
+                    .addComponent(btn_buscarproducto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(btn_buscarproducto)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btn_refrescar)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout pnlproductoLayout = new javax.swing.GroupLayout(pnlproducto);
@@ -630,15 +674,12 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
                 .addComponent(lblllaveproducto))
             .addGroup(pnlproductoLayout.createSequentialGroup()
                 .addGap(946, 946, 946)
-                .addComponent(lblllaveprogramadadetalle))
+                .addComponent(lblllavedespachodetalle))
             .addGroup(pnlproductoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(pnlproductoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4)
-                    .addGroup(pnlproductoLayout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         pnlproductoLayout.setVerticalGroup(
@@ -649,12 +690,10 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
                         .addGap(2, 2, 2)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblllaveproducto)
                 .addGap(138, 138, 138)
-                .addComponent(lblllaveprogramadadetalle)
+                .addComponent(lblllavedespachodetalle)
                 .addGap(123, 123, 123))
         );
 
@@ -712,21 +751,22 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
                         .addComponent(lbl_idcomercio)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btn_nuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33)
-                        .addComponent(btn_finalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btn_finalizar, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(8, 8, 8)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel18, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btn_nuevo)
-                        .addComponent(btn_finalizar)
-                        .addComponent(lbl_idcomercio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btn_nuevo)
+                            .addComponent(btn_finalizar)
+                            .addComponent(lbl_idcomercio, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)))
+                    .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlDespacho, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -756,21 +796,16 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
     }
     
     private void btn_nuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_nuevoActionPerformed
-        
         try
         {
             if(validar_formulario()){
-
+                
                 int id_usuario = Integer.parseInt(Inventario.global_llaveusuario);
-
                 int id_despacho = 0;
                 Despacho dsp;
-
                 SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
-
                 Date d = f.parse(txt_fecha.getText());
                 long milliseconds = d.getTime();
-
                 java.sql.Date fecha = new java.sql.Date(milliseconds);
 
                 dsp = new Despacho(0, id_usuario, fecha, 2);
@@ -823,7 +858,8 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
         activarProducto();
         
     }
-     private void activarProducto()
+    
+    private void activarProducto()
     {
         pnlgrid.setEnabled(true);
         pnlproducto.setEnabled(true);
@@ -835,16 +871,15 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
         txt_numeroparte.setText("");
 
         txt_nsn.setEnabled(true);
-        txt_producto.setEnabled(false);
+        txt_producto.setEnabled(true);
         txt_cantidad.setEnabled(false);
         txt_descripcion.setEnabled(false);
-        txt_numeroparte.setEnabled(false);
+        txt_numeroparte.setEnabled(true);
 
         btn_buscarproducto.setEnabled(true);
         btn_agregar.setEnabled(false);
         btn_eliminar.setEnabled(false);
         btn_limpiar.setEnabled(false);
-
 
     }
     
@@ -894,12 +929,19 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
 
                 if (blx_estado == false) {
 
+                    descontar_producto();
+                    
                     JOptionPane.showMessageDialog(null, "Despacho de Productos finalizados");
-                    Limpiar();
+                    
+                    generar_pdf(); 
+                    
+                    /*Limpiar();
                     CargarCombo();
                     LimpiarTabla();
                     btn_nuevo.setEnabled(true);
                     lbl_idcomercio.setText("");
+                   */
+                    this.setVisible(false);
 
                 } else {
                     JOptionPane.showMessageDialog(null, "Dato no Agregdo");
@@ -912,6 +954,15 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_btn_finalizarActionPerformed
 
+    private void descontar_producto(){
+        
+        int id_despacho = Integer.parseInt(lbl_LlaveDespacho.getText());
+        Despacho cl_despacho;
+        
+        boolean resp = cl_despacho_log.DescontarProducto(id_despacho);
+        
+    }
+    
     private void cbx_unidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbx_unidadActionPerformed
         try
         {
@@ -931,11 +982,11 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
     private void cbxzonalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxzonalActionPerformed
 
         CargaUnidad();
-        }
+    }
 
-        private void CargaUnidad(){
-
-            try
+    private void CargaUnidad()
+    {
+        try
             {
                 CmbZonal items = (CmbZonal)cbxzonal.getSelectedItem();
                 int id_zonal = Integer.parseInt(items.getID());
@@ -1056,6 +1107,7 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
 
                 CmbUnidad itemsU = (CmbUnidad)cbx_unidad.getSelectedItem();
                 int id_unidad = Integer.parseInt(itemsU.getID());
+                String stx_unidad = itemsU.toString();
 
                 String stx_nombrerecibe = txt_nombretecnico.getText();
                 String stx_correorecibe = txt_correo.getText();
@@ -1085,6 +1137,7 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
                     activarProducto();
                     ListarTablaBuscar();
                     ListarTabla();
+                   
 
                 } else {
                     JOptionPane.showMessageDialog(null, "Dato no Agregdo");
@@ -1098,19 +1151,108 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_btn_agregarActionPerformed
 
-    private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
+    public void generar_pdf()
+    {
+        try {
+    
+            
+            
+            CmbUnidad itemsU = (CmbUnidad)cbx_unidad.getSelectedItem();
+            int id_unidad = Integer.parseInt(itemsU.getID());
+            String stx_unidad = itemsU.toString();
+            
+            Rectangle small = new Rectangle(290,100);
+            Font smallfont = new Font(Font.FontFamily.HELVETICA, 6);
+            Font mediumfont = new Font(Font.FontFamily.HELVETICA, 8);
+            Font largefont = new Font(Font.FontFamily.HELVETICA, 10);
 
-        /*boolean resp = programadasdetalle.DeleteProgramada(pgrd);
+            FileOutputStream archivo = new FileOutputStream(DEST + lbl_idcomercio.getText()+".pdf");
+            Document doc = new Document(PageSize.LETTER);
+            PdfWriter.getInstance(doc, archivo);
+            doc.open();
+
+
+            Paragraph paragraph1 = new Paragraph("Despacho de Materiales SAV Nº " + lbl_idcomercio.getText() + " " + stx_unidad, largefont);
+            paragraph1.setSpacingBefore(20f);
+            doc.add(paragraph1);
+
+            paragraph1 = new Paragraph("Se realiza despacho de los siguientes materiales a la unidad de " + stx_unidad, mediumfont);
+            paragraph1.setSpacingBefore(20f);
+            doc.add(paragraph1);
+
+            paragraph1 = new Paragraph("PRIORIDAD DEL DESPACHO : NORMAL", mediumfont);
+            paragraph1.setSpacingBefore(20f);
+            doc.add(paragraph1);
+
+            paragraph1 = new Paragraph(" ", mediumfont);
+            paragraph1.setSpacingBefore(20f);
+            doc.add(paragraph1);
+
+            PdfPTable table = new PdfPTable(5);
+            table.setTotalWidth(new float[]{ 80, 100,160,100,80});
+            table.setLockedWidth(true);
+
+            PdfPCell cell = new PdfPCell(new Phrase("S.N.S", mediumfont));
+            cell.setFixedHeight(20);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Phrase("PRODUCTO", mediumfont));
+            cell.setFixedHeight(20);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Phrase("DESCRIPCION", mediumfont));
+            cell.setFixedHeight(20);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Phrase("Nº PARTE", mediumfont));
+            cell.setFixedHeight(20);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Phrase("CANTIDAD DESPACHO", mediumfont));
+            cell.setFixedHeight(20);
+            table.addCell(cell);    
+
+            //SECOND ROW
+
+            int llavedespacho = Integer.parseInt(lbl_LlaveDespacho.getText());
+            List<DespachoDetalle> listas = cl_despachodetalle_log.listado(llavedespacho);
+
+            for(DespachoDetalle despacho : listas){
+                cell = new PdfPCell(new Phrase(despacho.getNsn(), smallfont));
+                table.addCell(cell);
+                cell = new PdfPCell(new Phrase(despacho.getProduto(), smallfont));
+                table.addCell(cell);
+                cell = new PdfPCell(new Phrase(despacho.getDescripcion(), smallfont));
+                table.addCell(cell);
+                cell = new PdfPCell(new Phrase(despacho.getNumeroparte(), smallfont));
+                table.addCell(cell);
+                cell = new PdfPCell(new Phrase(String.valueOf(despacho.getCantidad()), smallfont));
+                table.addCell(cell);
+            }
+            doc.add(table);
+
+            doc.close();
+            /*JOptionPane.showMessageDialog(null, "PDF correctamente Creado");*/
+            
+            File path = new File (DEST + lbl_idcomercio.getText()+".pdf");
+            Desktop.getDesktop().open(path);
+        
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
+        
+        boolean resp = cl_despachodetalle_log.DeleteDespachoDetalle(cl_despachodetalle);
         if (resp == false) {
             JOptionPane.showMessageDialog(null, "Dato Eliminado");
             ListarTabla();
-            ListarTablaproducto();
-
+            ListarTablaBuscar();
             activarProducto();
         } else {
             JOptionPane.showMessageDialog(null, "Dato no Eliminado");
-        }*/
-        // TODO add your handling code here:
+        }
     }//GEN-LAST:event_btn_eliminarActionPerformed
 
     private void btn_limpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_limpiarActionPerformed
@@ -1121,7 +1263,7 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
         txt_cantidad.setEditable(true);
 
         lblllaveproducto.setText("");
-        lblllaveprogramadadetalle.setText("");
+        lblllavedespachodetalle.setText("");
 
         txt_producto.setText("");
         txt_nsn.setText("");
@@ -1153,21 +1295,28 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
 
-        viewp = ((ModeloTablaView_ProductoDespachoSolicitado) jTable1.getModel()).DameDespachoSolicitado(jTable1.getSelectedRow());
+        cl_despachodetalle = ((ModeloTablaDespachoDetalle) jTable1.getModel()).DameDespachoDetalle(jTable1.getSelectedRow());
 
-        lblllaveprogramadadetalle.setText(String.valueOf(viewp.getidProductoSolicitado()));
+        lblllavedespachodetalle.setText(String.valueOf(cl_despachodetalle.getIdDetalleDespacho()));
 
-        txt_nsn.setText(viewp.getNsn());
-        txt_numeroparte.setText(viewp.getNumeroparte());
-        txt_descripcion.setText(viewp.getDescripcion());
-        txt_producto.setText(viewp.getProduto());
-        txt_cantidad.setText(String.valueOf(viewp.getCantidad()));
+        txt_nsn.setText(cl_despachodetalle.getNsn());
+        txt_numeroparte.setText(cl_despachodetalle.getNumeroparte());
+        txt_descripcion.setText(cl_despachodetalle.getDescripcion());
+        txt_producto.setText(cl_despachodetalle.getProduto());
+        txt_cantidad.setText(String.valueOf(cl_despachodetalle.getCantidad()));
 
         btn_buscarproducto.setEnabled(false);
         btn_agregar.setEnabled(false);
         btn_eliminar.setEnabled(true);
         btn_limpiar.setEnabled(true);
     }//GEN-LAST:event_jTable1MouseClicked
+
+    private void btn_refrescarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_refrescarActionPerformed
+
+        
+        ListarTabla();
+
+    }//GEN-LAST:event_btn_refrescarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1177,6 +1326,7 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
     private javax.swing.JButton btn_finalizar;
     private javax.swing.JButton btn_limpiar;
     private javax.swing.JButton btn_nuevo;
+    private javax.swing.JButton btn_refrescar;
     private javax.swing.JComboBox<String> cbx_prioridad;
     private javax.swing.JComboBox<String> cbx_unidad;
     private javax.swing.JComboBox<String> cbxsistema;
@@ -1201,8 +1351,8 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lbl_numeroparte;
     private javax.swing.JLabel lbl_sistema;
     private javax.swing.JLabel lbl_unidad;
+    private javax.swing.JLabel lblllavedespachodetalle;
     private javax.swing.JLabel lblllaveproducto;
-    private javax.swing.JLabel lblllaveprogramadadetalle;
     private javax.swing.JLabel lblproducto;
     private javax.swing.JLabel lblzonal;
     private javax.swing.JPanel pnlDespacho;

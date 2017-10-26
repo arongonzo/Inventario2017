@@ -25,4 +25,8 @@ public class DespachoLog {
       return cl_despacho.listado(id_sistema, id_unidad, fecha);
     }
     
+    public boolean DescontarProducto(int id_despacho) {
+      return cl_despacho.DescontarProductos(id_despacho);
+    }
+    
 }

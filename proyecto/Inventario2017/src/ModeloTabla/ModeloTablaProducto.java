@@ -6,7 +6,7 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 public class ModeloTablaProducto  extends AbstractTableModel {
-    String[] columnas = {"N.S.N", "Producto","Descripcion", "Nº Parte", "Cantidad", "Valor"};
+    String[] columnas = {"codigo", "N.S.N", "Producto","Descripcion", "Nº Parte", "Saldo en bodega", "Valor"};
     public List<Producto> productos = new ArrayList<>();
 
     public ModeloTablaProducto(List<Producto> productos) {
@@ -33,21 +33,24 @@ public class ModeloTablaProducto  extends AbstractTableModel {
         Object resp = null;
         switch(columnIndex){    
             case 0:    
-                resp = productos.get(rowIndex).getNsn();
+                resp = productos.get(rowIndex).getIdproducto();
                 break;
             case 1:    
-                resp = productos.get(rowIndex).getNombre();
+                resp = productos.get(rowIndex).getNsn();
                 break;
             case 2:    
-                resp = productos.get(rowIndex).getDescripcion();
+                resp = productos.get(rowIndex).getNombre();
                 break;
             case 3:    
-                resp = productos.get(rowIndex).getN_parte();
+                resp = productos.get(rowIndex).getDescripcion();
                 break;
             case 4:    
-                resp = productos.get(rowIndex).getCantidad();
+                resp = productos.get(rowIndex).getN_parte();
                 break;
             case 5:    
+                resp = productos.get(rowIndex).getCantidad();
+                break;
+            case 6:    
                 resp = productos.get(rowIndex).getValor_unitario();
                 break;
         }

@@ -8,7 +8,7 @@ public class Producto {
     String descripcion;
     String n_parte;
     int cantidad;
-    int valor_unitario;
+    double valor_unitario;
     String ubicacion;
     String ubicacion_detalle;
     String anio_ingreso;
@@ -19,7 +19,7 @@ public class Producto {
     }
 
     public Producto(
-        int idproducto, String nsn, String nombre,String descripcion, String n_parte, int cantidad, int valor_unitario, String ubicacion, String ubicacion_detalle, String anio_ingreso, String anio_salida, int estado) 
+        int idproducto, String nsn, String nombre,String descripcion, String n_parte, int cantidad, double valor_unitario, String ubicacion, String ubicacion_detalle, String anio_ingreso, String anio_salida, int estado) 
     {
         this.idproducto = idproducto;
         this.nsn = nsn;
@@ -84,11 +84,11 @@ public class Producto {
         this.cantidad = cantidad;
     }
 
-    public int getValor_unitario() {
+    public double getValor_unitario() {
         return valor_unitario;
     }
 
-    public void setValor_unitario(int valor_unitario) {
+    public void setValor_unitario(double valor_unitario) {
         this.valor_unitario = valor_unitario;
     }
     

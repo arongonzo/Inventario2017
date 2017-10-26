@@ -144,4 +144,30 @@ public class DespachoDao {
         return lista;
     }
     
+    public boolean DescontarProductos(int id_despacho) {
+        Connection con = null;
+        CallableStatement cstm = null;
+        int myIdentVal = -1; //to store the @@IDENTITY
+        boolean resp = true; 
+        try {
+            con = conexion.getConection();
+            con.setAutoCommit(false);
+            
+            ResultSet rs = null;
+            List<Despacho> lista = null;
+            
+            cstm = con.prepareCall("{Call pa_DespachoDescontarProducto(?)}");
+            cstm.setInt(1, id_despacho);
+            
+            resp = cstm.execute();
+            con.commit();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }finally{
+            conexion.Cerrar1(con, cstm);
+        }
+        return resp;
+    }
+    
 }

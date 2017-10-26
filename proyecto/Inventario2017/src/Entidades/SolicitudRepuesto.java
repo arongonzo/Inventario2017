@@ -30,19 +30,29 @@ public class SolicitudRepuesto {
     public SolicitudRepuesto() {
     }
     
-    public SolicitudRepuesto(int id_solicitudRepuesto,
+    public SolicitudRepuesto(
+            int id_solicitudRepuesto,
+            int id_unidad,
             int id_usuario,
             Date fecha_creacion,
+            String nombre_tecnico,
+            String correo_electronico,
+            String Anexo,
             int estado) 
     {
         this.id_solicitudRepuesto = id_solicitudRepuesto;
+        this.id_unidad = id_unidad;
         this.id_usuario = id_usuario;
         this.fecha_creacion = fecha_creacion;
+        this.nombre_tecnico = nombre_tecnico;
+        this.correo_electronico = correo_electronico;
+        this.Anexo = Anexo;
         this.estado = estado;
     }
 
-    public SolicitudRepuesto(int id_solicitudRepuesto,
-    int id_temporada,
+    public SolicitudRepuesto(
+            int id_solicitudRepuesto,
+            int id_temporada,
     String id_comercial,
     int id_unidad,
     int id_usuario,

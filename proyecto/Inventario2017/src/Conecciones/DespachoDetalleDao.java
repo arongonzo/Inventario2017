@@ -107,6 +107,7 @@ public class DespachoDetalleDao {
                 Srd.setDescripcion(rs.getString("descripcion_producto"));
                 Srd.setNumeroparte(rs.getString("n_parte"));
                 Srd.setCantidadDisponible(rs.getInt("solicitada"));
+                Srd.setCantidadDespachada(rs.getInt("entregada"));
                 
                 
                 lista.add(Srd);

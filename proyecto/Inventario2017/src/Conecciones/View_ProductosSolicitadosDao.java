@@ -11,7 +11,7 @@ public class View_ProductosSolicitadosDao {
     
     Coneccion conexion = new Coneccion();
     
-    public List<View_ProductosSolicitados> listado(int id_unidad, int id_sistema ) {
+    public List<View_ProductosSolicitados> listado(int id_unidad, int id_sistema,int id_producto,String nsn,String numeroparte,String producto ) {
         Connection con = null;
         CallableStatement cstm = null;
         ResultSet rs = null;
@@ -19,9 +19,13 @@ public class View_ProductosSolicitadosDao {
         try {
             lista = new ArrayList<>();
             con = conexion.getConection();
-            cstm = con.prepareCall("{Call pa_ListarSolicitudProgramada_productos(?,?)}");
+            cstm = con.prepareCall("{Call pa_ListarSolicitudProgramada_productos(?,?,?,?,?,?)}");
             cstm.setInt(1, id_sistema);
             cstm.setInt(2, id_unidad);
+            cstm.setInt(3, id_producto);
+            cstm.setString(4, nsn);
+            cstm.setString(5, numeroparte);
+            cstm.setString(6, producto);
             
             rs = cstm.executeQuery();
             View_ProductosSolicitados Pgr = null;

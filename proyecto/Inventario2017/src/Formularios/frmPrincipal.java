@@ -6,23 +6,85 @@
 package Formularios;
 
 import java.beans.PropertyVetoException;
+import java.util.TreeMap;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
+import javax.swing.JPanel;
 
-/**
- *
- * @author matygonzo
- */
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.List;
+import java.util.*;
+import java.util.TreeMap;
+import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableColumnModel;
+
+import org.apache.poi.hwpf.model.FileInformationBlock;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.ss.usermodel.Cell;
+
+import Entidades.Producto;
+import Entidades.View_ReporteInicioTemporada;
+import Entidades.View_ReporteProductoTotal;
+
+import Logico.ProductoLog;
+import Logico.View_ReporteInicioTemporadaLog;
+import Logico.View_ReporteProductoTotalLog;
+
+import ModeloTabla.ModeloTablaProducto;
+import ModeloTabla.ModeloTablaView_ReporteInicioTemporada;
+import ModeloTabla.ModeloTablaView_ReporteProductoTotal;
+
+import clases.Datos;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.xssf.usermodel.XSSFDataFormat;
+
 public class frmPrincipal extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Principal
-     */
+    ProductoLog productos;
+    View_ReporteInicioTemporadaLog productosInicio;
+    
+    Producto prd;
+    View_ReporteInicioTemporada ProductoInicio;
+    
+    ModeloTablaProducto mtp;
+    ModeloTablaView_ReporteInicioTemporada modeloInicio;
+    
+    View_ReporteProductoTotalLog log_productototal;
+    ModeloTablaView_ReporteProductoTotal modelo_productototal;
+    
     public frmPrincipal() {
         initComponents();
-        Llaveusuario.setVisible(false);
+        productos = new ProductoLog();
+        productosInicio = new View_ReporteInicioTemporadaLog();
+        
+        log_productototal = new View_ReporteProductoTotalLog();
+       
+        ((JPanel)getContentPane()).setOpaque(false);
+        setIconImage(new ImageIcon(getClass().getResource("/Images/icono.png")).getImage());
+        ImageIcon uno = new ImageIcon(this.getClass().getResource("/Images/fondogrande.jpg"));
+        JLabel fondo= new JLabel();
+        fondo.setIcon(uno);
+        getLayeredPane().add(fondo, JLayeredPane.FRAME_CONTENT_LAYER);
+        fondo.setBounds(0,0,uno.getIconWidth(),uno.getIconHeight());
+        this.setTitle("Control de Invetario");
         
     }
-
-  
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -34,7 +96,6 @@ public class frmPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         dpnEscritorio = new javax.swing.JDesktopPane();
-        Llaveusuario = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuBodega = new javax.swing.JMenu();
         mnuproductos = new javax.swing.JMenuItem();
@@ -43,9 +104,13 @@ public class frmPrincipal extends javax.swing.JFrame {
         mnusolicitadprog = new javax.swing.JMenu();
         menuprogramada = new javax.swing.JMenuItem();
         mnurespuesto = new javax.swing.JMenuItem();
-        mnucompras = new javax.swing.JMenu();
-        jMenuItem2 = new javax.swing.JMenuItem();
         mnuinformes = new javax.swing.JMenu();
+        mnuInformeProducto = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        mmuReporteSaldoInicio = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         mnuConfiguracion = new javax.swing.JMenu();
         Temporada = new javax.swing.JMenuItem();
         mnuSistema = new javax.swing.JMenuItem();
@@ -55,38 +120,29 @@ public class frmPrincipal extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         mnuUsuarios = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
-        mnuClave = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
         mnuSalir = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         dpnEscritorio.setBackground(new java.awt.Color(204, 204, 204));
-
-        Llaveusuario.setText("jLabel1");
-        Llaveusuario.setEnabled(false);
-
-        dpnEscritorio.setLayer(Llaveusuario, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        dpnEscritorio.setToolTipText("");
+        dpnEscritorio.setOpaque(false);
 
         javax.swing.GroupLayout dpnEscritorioLayout = new javax.swing.GroupLayout(dpnEscritorio);
         dpnEscritorio.setLayout(dpnEscritorioLayout);
         dpnEscritorioLayout.setHorizontalGroup(
             dpnEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(dpnEscritorioLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(Llaveusuario)
-                .addContainerGap(783, Short.MAX_VALUE))
+            .addGap(0, 1658, Short.MAX_VALUE)
         );
         dpnEscritorioLayout.setVerticalGroup(
             dpnEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(dpnEscritorioLayout.createSequentialGroup()
-                .addComponent(Llaveusuario)
-                .addGap(0, 393, Short.MAX_VALUE))
+            .addGap(0, 900, Short.MAX_VALUE)
         );
 
-        Llaveusuario.getAccessibleContext().setAccessibleName("");
+        jMenuBar1.setForeground(new java.awt.Color(204, 204, 255));
 
-        mnuBodega.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/file.png"))); // NOI18N
+        mnuBodega.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/btn_producto.png"))); // NOI18N
         mnuBodega.setText("Bodega");
         mnuBodega.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -136,21 +192,57 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(mnusolicitadprog);
 
-        mnucompras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/comprar.png"))); // NOI18N
-        mnucompras.setText("Compras");
-
-        jMenuItem2.setText("Generar Compras");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
-            }
-        });
-        mnucompras.add(jMenuItem2);
-
-        jMenuBar1.add(mnucompras);
-
         mnuinformes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/informes.png"))); // NOI18N
         mnuinformes.setText("Informes");
+
+        mnuInformeProducto.setText("Reporte de Stock de Inventario");
+        mnuInformeProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuInformeProductoActionPerformed(evt);
+            }
+        });
+        mnuinformes.add(mnuInformeProducto);
+
+        jMenuItem3.setText("Reporte Solicitud Programada Anual");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        mnuinformes.add(jMenuItem3);
+
+        jMenuItem4.setText("Reporte Solicitud Repuestos");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        mnuinformes.add(jMenuItem4);
+
+        mmuReporteSaldoInicio.setText("Reporte Saldo Inicio Año");
+        mmuReporteSaldoInicio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mmuReporteSaldoInicioActionPerformed(evt);
+            }
+        });
+        mnuinformes.add(mmuReporteSaldoInicio);
+
+        jMenuItem5.setText("Reporte Despacho");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        mnuinformes.add(jMenuItem5);
+
+        jMenuItem1.setText("Informe Producto Completo");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        mnuinformes.add(jMenuItem1);
+
         jMenuBar1.add(mnuinformes);
 
         mnuConfiguracion.setText("Configuración");
@@ -207,9 +299,6 @@ public class frmPrincipal extends javax.swing.JFrame {
         });
         mnuConfiguracion.add(mnuUsuarios);
         mnuConfiguracion.add(jSeparator2);
-
-        mnuClave.setText("Usuarios");
-        mnuConfiguracion.add(mnuClave);
         mnuConfiguracion.add(jSeparator3);
 
         mnuSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/cerrar.png"))); // NOI18N
@@ -238,8 +327,6 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    
     
     private void mnuSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuSalirActionPerformed
         System.exit(0);
@@ -263,7 +350,6 @@ public class frmPrincipal extends javax.swing.JFrame {
         }
         
         misUnidades.show();
-        
         
     }//GEN-LAST:event_mnuUnidadActionPerformed
 
@@ -333,16 +419,365 @@ public class frmPrincipal extends javax.swing.JFrame {
         misDespacho.show();
     }//GEN-LAST:event_mnudespachoproductoActionPerformed
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
-
     private void mnuCondicionSistemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCondicionSistemaActionPerformed
        // TODO add your handling code here:
         FrmCondicionSistema misCondiciones = new FrmCondicionSistema();
         dpnEscritorio.add(misCondiciones);
         misCondiciones.show();
     }//GEN-LAST:event_mnuCondicionSistemaActionPerformed
+
+    private void mnuInformeProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuInformeProductoActionPerformed
+        try
+        {
+            long datetimemlli= Datos.DatetoMilisecond(new Date());
+            
+            XSSFWorkbook wb = new XSSFWorkbook(new FileInputStream("c:/excel/template_producto.xlsx"));
+            
+            XSSFSheet ws = wb.getSheetAt(0);
+            /*
+            XSSFSheet ws = wb.createSheet("Inventario_completo");
+            */
+            List<Producto> listas = productos.listado(0,"" , "", "");
+            mtp = new ModeloTablaProducto(listas);
+
+            //load data to treemap
+            TreeMap<Integer,Object[]> data = new TreeMap<>();
+            int pos = 0;
+            //data.put("0",new Object[]{mtp.getColumnName(0), mtp.getColumnName(1),mtp.getColumnName(2), mtp.getColumnName(3), mtp.getColumnName(4), mtp.getColumnName(5)});
+
+            for (Producto prd : mtp.productos) {
+                data.put(pos + 1,new Object[]{mtp.getValueAt(pos,0), mtp.getValueAt(pos,1),mtp.getValueAt(pos,2), mtp.getValueAt(pos,3), mtp.getValueAt(pos,4), mtp.getValueAt(pos,5), mtp.getValueAt(pos,6)});
+                pos++;
+            }
+
+            Set<Integer> ids = data.keySet();
+            XSSFRow row;
+            XSSFDataFormat dt = wb.createDataFormat();
+            int rowId=12;
+
+            for(Integer key:ids)
+            {
+                CellStyle numberStyle = wb.createCellStyle();
+                numberStyle.setDataFormat(dt.getFormat("0"));
+                numberStyle.setBorderRight(CellStyle.BORDER_THIN);
+                numberStyle.setRightBorderColor(IndexedColors.BLACK.getIndex());
+                numberStyle.setBorderBottom(CellStyle.BORDER_THIN);
+                numberStyle.setBottomBorderColor(IndexedColors.BLACK.getIndex());
+                numberStyle.setBorderLeft(CellStyle.BORDER_THIN);
+                numberStyle.setLeftBorderColor(IndexedColors.BLACK.getIndex());
+                numberStyle.setBorderTop(CellStyle.BORDER_THIN);
+                numberStyle.setTopBorderColor(IndexedColors.BLACK.getIndex());
+                
+                row=ws.createRow(rowId++);
+                Object[] values = data.get(key);
+
+                int cellId =0;
+                for(Object o : values)
+                {
+                    
+
+                    Cell cell = row.createCell(0);
+                    cell.setCellValue(Integer.parseInt(values[0].toString()));
+                    cell.setCellStyle(numberStyle);
+
+                    cell = row.createCell(1);
+                    cell.setCellValue(values[1].toString());
+                    cell.setCellStyle(numberStyle);
+
+                    cell = row.createCell(2);
+                    cell.setCellValue(values[2].toString());
+                    cell.setCellStyle(numberStyle);
+
+                    cell = row.createCell(3);
+                    cell.setCellValue(values[3].toString());
+                    cell.setCellStyle(numberStyle);
+
+                    cell = row.createCell(4);
+                    cell.setCellValue(values[4].toString());
+                    cell.setCellStyle(numberStyle);
+
+                    cell = row.createCell(5);
+                    cell.setCellValue(Integer.parseInt(values[5].toString()));
+                    cell.setCellStyle(numberStyle);
+                 
+                    cell = row.createCell(6);
+                    cell.setCellValue(Double.parseDouble(values[6].toString()));
+                    cell.setCellStyle(numberStyle);
+                    
+                }
+            }
+
+            FileOutputStream fos= new FileOutputStream(new File("c:/excel/ExcelProducto_" + String.valueOf(datetimemlli) + ".xlsx"));
+            wb.write(fos);
+            fos.close();
+            JOptionPane.showMessageDialog(null, "Datos exportados en c:/excel/ExcelProducto_" + String.valueOf(datetimemlli) + ".xlsx" );
+            
+        } 
+        catch(FileNotFoundException ex)
+        {
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error en " + ex);
+        } 
+        catch (IOException ex) 
+        {
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error en " + ex);
+        }
+    }//GEN-LAST:event_mnuInformeProductoActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        // TODO add your handling code here:
+        FrmInformeReporteAnual misInformes = new FrmInformeReporteAnual();
+        dpnEscritorio.add(misInformes);
+        try {
+            misInformes.setMaximum(true);
+        } catch (PropertyVetoException e) {
+            // Vetoed by internalFrame
+            // ... possibly add some handling for this case
+        }
+        misInformes.show();
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+        FrmInformeSolicitudRepuesto misInformes = new FrmInformeSolicitudRepuesto();
+        dpnEscritorio.add(misInformes);
+        try {
+            misInformes.setMaximum(true);
+        } catch (PropertyVetoException e) {
+            // Vetoed by internalFrame
+            // ... possibly add some handling for this case
+        }
+        misInformes.show();
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void mmuReporteSaldoInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mmuReporteSaldoInicioActionPerformed
+        // TODO add your handling code here:
+        try
+        {
+            long datetimemlli= Datos.DatetoMilisecond(new Date());
+            
+            XSSFWorkbook wb = new XSSFWorkbook(new FileInputStream("c:/excel/template_productoInicio.xlsx"));
+            
+            XSSFSheet ws = wb.getSheetAt(0);
+            /*
+            XSSFSheet ws = wb.createSheet("Inventario_completo");
+            */
+            List<View_ReporteInicioTemporada> listas = productosInicio.listado();
+            modeloInicio = new ModeloTablaView_ReporteInicioTemporada(listas);
+
+            //load data to treemap
+            TreeMap<Integer,Object[]> data = new TreeMap<>();
+            int pos = 0;
+            //data.put("0",new Object[]{mtp.getColumnName(0), mtp.getColumnName(1),mtp.getColumnName(2), mtp.getColumnName(3), mtp.getColumnName(4), mtp.getColumnName(5)});
+
+            for (View_ReporteInicioTemporada prd : modeloInicio.ViewReporteInicioTemporada) {
+                data.put(pos + 1,new Object[]{modeloInicio.getValueAt(pos,0), modeloInicio.getValueAt(pos,1),modeloInicio.getValueAt(pos,2), modeloInicio.getValueAt(pos,3), modeloInicio.getValueAt(pos,4), modeloInicio.getValueAt(pos,5), modeloInicio.getValueAt(pos,6),  modeloInicio.getValueAt(pos,7)});
+                pos++;
+            }
+
+            Set<Integer> ids = data.keySet();
+            XSSFRow row;
+            XSSFDataFormat dt = wb.createDataFormat();
+            int rowId=12;
+
+            for(Integer key:ids)
+            {
+                CellStyle numberStyle = wb.createCellStyle();
+                numberStyle.setDataFormat(dt.getFormat("0"));
+                numberStyle.setBorderRight(CellStyle.BORDER_THIN);
+                numberStyle.setRightBorderColor(IndexedColors.BLACK.getIndex());
+                numberStyle.setBorderBottom(CellStyle.BORDER_THIN);
+                numberStyle.setBottomBorderColor(IndexedColors.BLACK.getIndex());
+                numberStyle.setBorderLeft(CellStyle.BORDER_THIN);
+                numberStyle.setLeftBorderColor(IndexedColors.BLACK.getIndex());
+                numberStyle.setBorderTop(CellStyle.BORDER_THIN);
+                numberStyle.setTopBorderColor(IndexedColors.BLACK.getIndex());
+                
+                row=ws.createRow(rowId++);
+                Object[] values = data.get(key);
+
+                int cellId =0;
+
+                Cell cell = row.createCell(0);
+                cell.setCellValue(Integer.parseInt(values[1].toString()));
+                cell.setCellStyle(numberStyle);    
+
+                cell = row.createCell(1);
+                cell.setCellValue(Integer.parseInt(values[0].toString()));
+                cell.setCellStyle(numberStyle);
+
+                cell = row.createCell(2);
+                cell.setCellValue(values[2].toString());
+                cell.setCellStyle(numberStyle);
+
+                cell = row.createCell(3);
+                cell.setCellValue(values[3].toString());
+                cell.setCellStyle(numberStyle);
+
+                cell = row.createCell(4);
+                cell.setCellValue(values[4].toString());
+                cell.setCellStyle(numberStyle);
+
+                cell = row.createCell(5);
+                cell.setCellValue(values[5].toString());
+                cell.setCellStyle(numberStyle);
+                
+                cell = row.createCell(6);
+                cell.setCellValue(Integer.parseInt(values[6].toString()));
+                cell.setCellStyle(numberStyle);
+
+                cell = row.createCell(7);
+                cell.setCellValue(Integer.parseInt(values[7].toString()));
+                cell.setCellStyle(numberStyle);
+
+            }
+
+            FileOutputStream fos= new FileOutputStream(new File("c:/excel/ExcelProductoInicioAnio_" + String.valueOf(datetimemlli) + ".xlsx"));
+            wb.write(fos);
+            fos.close();
+            JOptionPane.showMessageDialog(null, "Datos exportados en c:/excel/ExcelProductoInicioAnio_" + String.valueOf(datetimemlli) + ".xlsx" );
+            
+        } 
+        catch(FileNotFoundException ex)
+        {
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error en " + ex);
+        } 
+        catch (IOException ex) 
+        {
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error en " + ex);
+        } 
+        
+    }//GEN-LAST:event_mmuReporteSaldoInicioActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        // TODO add your handling code here:
+        FrmInformeReporteDespacho misInformes = new FrmInformeReporteDespacho();
+        dpnEscritorio.add(misInformes);
+        try {
+            misInformes.setMaximum(true);
+        } catch (PropertyVetoException e) {
+            // Vetoed by internalFrame
+            // ... possibly add some handling for this case
+        }
+        misInformes.show();
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        // TODO add your handling code here:
+        try
+        {
+            long datetimemlli= Datos.DatetoMilisecond(new Date());
+            
+            XSSFWorkbook wb = new XSSFWorkbook(new FileInputStream("c:/excel/template_productocompleto.xlsx"));
+            
+            XSSFSheet ws = wb.getSheetAt(0);
+            /*
+            XSSFSheet ws = wb.createSheet("Inventario_completo");
+            */
+            List<View_ReporteProductoTotal> listas = log_productototal.listado();
+            modelo_productototal = new ModeloTablaView_ReporteProductoTotal(listas);
+
+            //load data to treemap
+            TreeMap<Integer,Object[]> data = new TreeMap<>();
+            int pos = 0;
+            //data.put("0",new Object[]{mtp.getColumnName(0), mtp.getColumnName(1),mtp.getColumnName(2), mtp.getColumnName(3), mtp.getColumnName(4), mtp.getColumnName(5)});
+
+            for (View_ReporteProductoTotal prd : modelo_productototal.view) {
+                data.put(pos + 1,new Object[]{modelo_productototal.getValueAt(pos,0), modelo_productototal.getValueAt(pos,1),modelo_productototal.getValueAt(pos,2), modelo_productototal.getValueAt(pos,3), modelo_productototal.getValueAt(pos,4), modelo_productototal.getValueAt(pos,5), modelo_productototal.getValueAt(pos,6),  modelo_productototal.getValueAt(pos,7),  modelo_productototal.getValueAt(pos,8),  modelo_productototal.getValueAt(pos,9),  modelo_productototal.getValueAt(pos,10),  modelo_productototal.getValueAt(pos,11),  modelo_productototal.getValueAt(pos,12)});
+                pos++;
+            }
+
+            Set<Integer> ids = data.keySet();
+            XSSFRow row;
+            XSSFDataFormat dt = wb.createDataFormat();
+            int rowId=5;
+
+            for(Integer key:ids)
+            {
+                CellStyle numberStyle = wb.createCellStyle();
+                numberStyle.setDataFormat(dt.getFormat("0"));
+                numberStyle.setBorderRight(CellStyle.BORDER_THIN);
+                numberStyle.setRightBorderColor(IndexedColors.BLACK.getIndex());
+                numberStyle.setBorderBottom(CellStyle.BORDER_THIN);
+                numberStyle.setBottomBorderColor(IndexedColors.BLACK.getIndex());
+                numberStyle.setBorderLeft(CellStyle.BORDER_THIN);
+                numberStyle.setLeftBorderColor(IndexedColors.BLACK.getIndex());
+                numberStyle.setBorderTop(CellStyle.BORDER_THIN);
+                numberStyle.setTopBorderColor(IndexedColors.BLACK.getIndex());
+                
+                row=ws.createRow(rowId++);
+                Object[] values = data.get(key);
+
+                int cellId =0;
+
+                Cell cell = row.createCell(0);
+                cell.setCellValue(Integer.parseInt(values[0].toString()));
+                cell.setCellStyle(numberStyle);    
+
+                cell = row.createCell(1);
+                cell.setCellValue(values[1].toString());
+                cell.setCellStyle(numberStyle);
+                
+                cell = row.createCell(2);
+                cell.setCellValue(values[2].toString());
+                cell.setCellStyle(numberStyle);
+                
+                cell = row.createCell(3);
+                cell.setCellValue(values[3].toString());
+                cell.setCellStyle(numberStyle);
+                
+                cell = row.createCell(4);
+                cell.setCellValue(Integer.parseInt(values[4].toString()));
+                cell.setCellStyle(numberStyle);
+
+                cell = row.createCell(5);
+                cell.setCellValue(Integer.parseInt(values[5].toString()));
+                cell.setCellStyle(numberStyle);
+
+                cell = row.createCell(6);
+                cell.setCellValue(Integer.parseInt(values[6].toString()));
+                cell.setCellStyle(numberStyle);
+                
+                cell = row.createCell(7);
+                cell.setCellValue(Integer.parseInt(values[7].toString()));
+                cell.setCellStyle(numberStyle);
+                
+                cell = row.createCell(8);
+                cell.setCellValue(Integer.parseInt(values[8].toString()));
+                cell.setCellStyle(numberStyle);
+                
+                cell = row.createCell(9);
+                cell.setCellValue(Integer.parseInt(values[9].toString()));
+                cell.setCellStyle(numberStyle);
+
+                cell = row.createCell(10);
+                cell.setCellValue(Integer.parseInt(values[10].toString()));
+                cell.setCellStyle(numberStyle);
+
+                cell = row.createCell(11);
+                cell.setCellValue(Integer.parseInt(values[11].toString()));
+                cell.setCellStyle(numberStyle);
+
+                cell = row.createCell(12);
+                cell.setCellValue(Double.parseDouble(values[12].toString()));
+                cell.setCellStyle(numberStyle);
+                
+            }
+
+            FileOutputStream fos= new FileOutputStream(new File("c:/excel/ExcelProductoTotal_" + String.valueOf(datetimemlli) + ".xlsx"));
+            wb.write(fos);
+            fos.close();
+            JOptionPane.showMessageDialog(null, "Datos exportados en c:/excel/ExcelProductoTotal_" + String.valueOf(datetimemlli) + ".xlsx" );
+            
+        } 
+        catch(FileNotFoundException ex)
+        {
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error en " + ex);
+        } 
+        catch (IOException ex) 
+        {
+            JOptionPane.showMessageDialog(null, "Ha ocurrido un error en " + ex);
+        }
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -381,26 +816,28 @@ public class frmPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public static javax.swing.JLabel Llaveusuario;
     private javax.swing.JMenuItem Temporada;
     private javax.swing.JDesktopPane dpnEscritorio;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JMenuItem menuprogramada;
+    private javax.swing.JMenuItem mmuReporteSaldoInicio;
     private javax.swing.JMenu mnuBodega;
-    private javax.swing.JMenuItem mnuClave;
     private javax.swing.JMenuItem mnuCondicionSistema;
     private javax.swing.JMenu mnuConfiguracion;
     private javax.swing.JMenu mnuDespacho;
+    private javax.swing.JMenuItem mnuInformeProducto;
     private javax.swing.JMenuItem mnuSalir;
     private javax.swing.JMenuItem mnuSistema;
     private javax.swing.JMenuItem mnuUnidad;
     private javax.swing.JMenuItem mnuUsuarios;
     private javax.swing.JMenuItem mnuZonal;
-    private javax.swing.JMenu mnucompras;
     private javax.swing.JMenuItem mnudespachoproducto;
     private javax.swing.JMenu mnuinformes;
     private javax.swing.JMenuItem mnuproductos;
