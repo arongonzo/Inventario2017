@@ -56,7 +56,7 @@ public class SolicitudRepuestoDetalleDao {
         return resp;
     }
 
-    public boolean DeleteRepuestoDetalle(SolicitudRepuestoDetalle Pgr) {
+    public boolean DeleteRepuestoDetalle(int Pgr) {
         Connection con = null;
         CallableStatement cstm = null;
         boolean resp = true;
@@ -64,7 +64,7 @@ public class SolicitudRepuestoDetalleDao {
             con = conexion.getConection();
             con.setAutoCommit(false);
             cstm = con.prepareCall("{Call pa_DeleteSolicitudRepuestoDetalle(?)}");
-            cstm.setInt(1, Pgr.getIdRepuestoDetalle());
+            cstm.setInt(1, Pgr);
             resp = cstm.execute();
             con.commit();
         } catch (Exception e) {

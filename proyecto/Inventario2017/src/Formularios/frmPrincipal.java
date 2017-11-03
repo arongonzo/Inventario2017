@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Formularios;
 
 import java.beans.PropertyVetoException;
@@ -82,8 +77,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         fondo.setIcon(uno);
         getLayeredPane().add(fondo, JLayeredPane.FRAME_CONTENT_LAYER);
         fondo.setBounds(0,0,uno.getIconWidth(),uno.getIconHeight());
-        this.setTitle("Control de Invetario");
-        
+        this.setTitle("Sistema de Gestión de Respuestos Consumibles");
     }
     
     /**
@@ -150,7 +144,7 @@ public class frmPrincipal extends javax.swing.JFrame {
             }
         });
 
-        mnuproductos.setText("Productos");
+        mnuproductos.setText("Formulario de ingreso de repuestos recién adquiridos");
         mnuproductos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnuproductosActionPerformed(evt);
@@ -162,7 +156,7 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         mnuDespacho.setText("Despacho");
 
-        mnudespachoproducto.setText("Despacho de Productos");
+        mnudespachoproducto.setText("Despacho de Repuestos");
         mnudespachoproducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnudespachoproductoActionPerformed(evt);
@@ -195,7 +189,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         mnuinformes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/informes.png"))); // NOI18N
         mnuinformes.setText("Informes");
 
-        mnuInformeProducto.setText("Reporte de Stock de Inventario");
+        mnuInformeProducto.setText("Reporte Repuestos Adquiridos");
         mnuInformeProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnuInformeProductoActionPerformed(evt);
@@ -235,7 +229,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         });
         mnuinformes.add(jMenuItem5);
 
-        jMenuItem1.setText("Informe Producto Completo");
+        jMenuItem1.setText("Reporte Anual de Movimientos en Bodega");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
@@ -682,7 +676,7 @@ public class frmPrincipal extends javax.swing.JFrame {
             //data.put("0",new Object[]{mtp.getColumnName(0), mtp.getColumnName(1),mtp.getColumnName(2), mtp.getColumnName(3), mtp.getColumnName(4), mtp.getColumnName(5)});
 
             for (View_ReporteProductoTotal prd : modelo_productototal.view) {
-                data.put(pos + 1,new Object[]{modelo_productototal.getValueAt(pos,0), modelo_productototal.getValueAt(pos,1),modelo_productototal.getValueAt(pos,2), modelo_productototal.getValueAt(pos,3), modelo_productototal.getValueAt(pos,4), modelo_productototal.getValueAt(pos,5), modelo_productototal.getValueAt(pos,6),  modelo_productototal.getValueAt(pos,7),  modelo_productototal.getValueAt(pos,8),  modelo_productototal.getValueAt(pos,9),  modelo_productototal.getValueAt(pos,10),  modelo_productototal.getValueAt(pos,11),  modelo_productototal.getValueAt(pos,12)});
+                data.put(pos + 1,new Object[]{modelo_productototal.getValueAt(pos,0), modelo_productototal.getValueAt(pos,1),modelo_productototal.getValueAt(pos,2), modelo_productototal.getValueAt(pos,3), modelo_productototal.getValueAt(pos,4), modelo_productototal.getValueAt(pos,5), modelo_productototal.getValueAt(pos,6),  modelo_productototal.getValueAt(pos,7),  modelo_productototal.getValueAt(pos,8),  modelo_productototal.getValueAt(pos,9),  modelo_productototal.getValueAt(pos,10),  modelo_productototal.getValueAt(pos,11),  modelo_productototal.getValueAt(pos,12), modelo_productototal.getValueAt(pos,13)});
                 pos++;
             }
 
@@ -703,6 +697,17 @@ public class frmPrincipal extends javax.swing.JFrame {
                 numberStyle.setLeftBorderColor(IndexedColors.BLACK.getIndex());
                 numberStyle.setBorderTop(CellStyle.BORDER_THIN);
                 numberStyle.setTopBorderColor(IndexedColors.BLACK.getIndex());
+                
+                CellStyle decimalStyle = wb.createCellStyle();
+                decimalStyle.setDataFormat(dt.getFormat("0.00"));
+                decimalStyle.setBorderRight(CellStyle.BORDER_THIN);
+                decimalStyle.setRightBorderColor(IndexedColors.BLACK.getIndex());
+                decimalStyle.setBorderBottom(CellStyle.BORDER_THIN);
+                decimalStyle.setBottomBorderColor(IndexedColors.BLACK.getIndex());
+                decimalStyle.setBorderLeft(CellStyle.BORDER_THIN);
+                decimalStyle.setLeftBorderColor(IndexedColors.BLACK.getIndex());
+                decimalStyle.setBorderTop(CellStyle.BORDER_THIN);
+                decimalStyle.setTopBorderColor(IndexedColors.BLACK.getIndex());
                 
                 row=ws.createRow(rowId++);
                 Object[] values = data.get(key);
@@ -728,7 +733,7 @@ public class frmPrincipal extends javax.swing.JFrame {
                 cell = row.createCell(4);
                 cell.setCellValue(Integer.parseInt(values[4].toString()));
                 cell.setCellStyle(numberStyle);
-
+                
                 cell = row.createCell(5);
                 cell.setCellValue(Integer.parseInt(values[5].toString()));
                 cell.setCellStyle(numberStyle);
@@ -758,8 +763,12 @@ public class frmPrincipal extends javax.swing.JFrame {
                 cell.setCellStyle(numberStyle);
 
                 cell = row.createCell(12);
-                cell.setCellValue(Double.parseDouble(values[12].toString()));
+                cell.setCellValue(Integer.parseInt(values[12].toString()));
                 cell.setCellStyle(numberStyle);
+                
+                cell = row.createCell(13);
+                cell.setCellValue(Double.parseDouble(values[13].toString()));
+                cell.setCellStyle(decimalStyle);
                 
             }
 

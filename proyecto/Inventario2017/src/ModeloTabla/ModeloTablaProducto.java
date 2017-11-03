@@ -6,7 +6,7 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 public class ModeloTablaProducto  extends AbstractTableModel {
-    String[] columnas = {"codigo", "N.S.N", "Producto","Descripcion", "Nº Parte", "Saldo en bodega", "Valor"};
+    String[] columnas = {"Nº", "N.S.N", "Repuesto","Descripcion", "Nº Parte", "Saldo en bodega", "Valor $USD"};
     public List<Producto> productos = new ArrayList<>();
 
     public ModeloTablaProducto(List<Producto> productos) {

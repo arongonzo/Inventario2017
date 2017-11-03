@@ -224,6 +224,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="txt_numerosolicitud">
+              <Properties>
+                <Property name="editable" type="boolean" value="false"/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lbl_correo">
               <Properties>
@@ -643,7 +646,7 @@
           <Properties>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder title="INFORMACION PRODUCTO"/>
+                <TitledBorder title="INFORMACION REPUESTOS"/>
               </Border>
             </Property>
           </Properties>
@@ -793,7 +796,7 @@
                 </Component>
                 <Component class="javax.swing.JLabel" name="lblproducto">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Producto"/>
+                    <Property name="text" type="java.lang.String" value="Repuestos"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txt_producto">

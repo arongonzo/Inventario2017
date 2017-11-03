@@ -223,11 +223,11 @@ public class FrmInformeReporteDespacho extends javax.swing.JInternalFrame {
             table.setTotalWidth(new float[]{ 80, 100,160,100,80});
             table.setLockedWidth(true);
 
-            PdfPCell cell = new PdfPCell(new Phrase("S.N.S", mediumfont));
+            PdfPCell cell = new PdfPCell(new Phrase("N.S.N", mediumfont));
             cell.setFixedHeight(20);
             table.addCell(cell);
 
-            cell = new PdfPCell(new Phrase("PRODUCTO", mediumfont));
+            cell = new PdfPCell(new Phrase("REPUESTO", mediumfont));
             cell.setFixedHeight(20);
             table.addCell(cell);
 

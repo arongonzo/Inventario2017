@@ -36,7 +36,7 @@ public class View_ReporteDespachoDao {
                 Prd.setUnidad(rs.getString("nombre_unidad"));
                 Prd.setFechaCreacion(rs.getDate("fecha"));
                 
-                JButton btn1 = new JButton("Generar Excel");
+                JButton btn1 = new JButton("Generar PDF");
                 btn1.setName("btnModificar");
                 
                 Prd.setbtn(btn1);

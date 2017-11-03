@@ -215,6 +215,7 @@ public class FrmInformeSolicitudRepuesto extends javax.swing.JInternalFrame {
             String fecha_creacion =  null;
             String fecha_solicitud =  null;
             String stx_prioridad = "";
+            String stx_numero = "";
             
             while (objResultSet.next())
             {
@@ -226,6 +227,7 @@ public class FrmInformeSolicitudRepuesto extends javax.swing.JInternalFrame {
                 stx_zonal = objResultSet.getString("nombre_zonal");
                 stx_unidad = objResultSet.getString("nombre_unidad");
                 stx_sistema = objResultSet.getString("nombre_sistema");
+                stx_numero = objResultSet.getString("id_comercial");
                                 
                 if(objResultSet.getString("fecha_creacion") != null)
                 {
@@ -262,7 +264,6 @@ public class FrmInformeSolicitudRepuesto extends javax.swing.JInternalFrame {
             
             XSSFRow row;
             
-            row=ws.createRow(7);
             cs.setDataFormat(dt.getFormat("0"));
             cs.setBorderRight(CellStyle.BORDER_THIN);
             cs.setRightBorderColor(IndexedColors.WHITE.getIndex());
@@ -272,8 +273,42 @@ public class FrmInformeSolicitudRepuesto extends javax.swing.JInternalFrame {
             cs.setLeftBorderColor(IndexedColors.WHITE.getIndex());
             cs.setBorderTop(CellStyle.BORDER_THIN);
             cs.setTopBorderColor(IndexedColors.WHITE.getIndex());
-                
+            
+            
+            row=ws.createRow(6);
+            
             Cell cell = row.createCell(1);
+            cell.setCellValue("Nº");
+            cell.setCellStyle(cs);
+            
+            cell = row.createCell(2);
+            cell.setCellValue(stx_numero);
+            cell.setCellStyle(cs);
+            
+            cell = row.createCell(0);
+            cell.setCellValue("");
+            cell.setCellStyle(cs);
+            
+            cell = row.createCell(3);
+            cell.setCellValue("");
+            cell.setCellStyle(cs);
+  
+            cell = row.createCell(4);
+            cell.setCellValue("");
+            cell.setCellStyle(cs);
+            
+            cell = row.createCell(5);
+            cell.setCellValue("");
+            cell.setCellStyle(cs);
+            
+            cell = row.createCell(6);
+            cell.setCellValue("");
+            cell.setCellStyle(cs);
+            
+            /*fila 2*/
+            row=ws.createRow(7);
+            
+            cell = row.createCell(1);
             cell.setCellValue("Zonal");
             cell.setCellStyle(cs);
             

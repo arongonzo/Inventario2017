@@ -16,7 +16,7 @@ public class SolicitudRepuestoDetalleLog {
         return repuesto.UpdateRepuestoDetalle(Srp);
     }
 
-    public boolean DeleteRepuesto(SolicitudRepuestoDetalle Srp) {
+    public boolean DeleteRepuesto(int Srp) {
         return repuesto.DeleteRepuestoDetalle(Srp);
     }
 

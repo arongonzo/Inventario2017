@@ -120,7 +120,7 @@ public class FrmProducto extends javax.swing.JInternalFrame {
         txt_parte.setText("");
         txt_valor.setText("");
         txt_stock.setText("");
-        txt_ubicacion.setText("");
+        
         txt_filtroNSN.setText("");
         txt_filtroParte.setText("");
         
@@ -130,7 +130,7 @@ public class FrmProducto extends javax.swing.JInternalFrame {
         txt_parte.setEnabled(false);
         txt_valor.setEnabled(false);
         txt_stock.setEnabled(false);
-        txt_ubicacion.setEnabled(false);
+        
         txt_filtroNSN.setEnabled(true);
         txt_filtroParte.setEnabled(true);
         
@@ -138,7 +138,7 @@ public class FrmProducto extends javax.swing.JInternalFrame {
         
         btn_grabar.setEnabled(false);
         btn_Modificar.setEnabled(false);
-        btn_Eliminar.setEnabled(false);
+        
         btn_Cancelar.setEnabled(false);
         //btn_salir.setEnabled(true);
         
@@ -157,7 +157,6 @@ public class FrmProducto extends javax.swing.JInternalFrame {
         lblstock = new javax.swing.JLabel();
         lblnsn = new javax.swing.JLabel();
         lbldescripcion = new javax.swing.JLabel();
-        lblubicacion = new javax.swing.JLabel();
         lblParte = new javax.swing.JLabel();
         lblllaveproducto = new javax.swing.JLabel();
         txt_nsn = new javax.swing.JTextField();
@@ -167,10 +166,8 @@ public class FrmProducto extends javax.swing.JInternalFrame {
         txt_parte = new javax.swing.JTextArea();
         txt_valor = new javax.swing.JTextField();
         txt_stock = new javax.swing.JTextField();
-        txt_ubicacion = new javax.swing.JTextField();
         pnlBotones = new javax.swing.JPanel();
         btn_Nuevo = new javax.swing.JButton();
-        btn_Eliminar = new javax.swing.JButton();
         btn_grabar = new javax.swing.JButton();
         btn_Cancelar = new javax.swing.JButton();
         btn_Modificar = new javax.swing.JButton();
@@ -191,14 +188,14 @@ public class FrmProducto extends javax.swing.JInternalFrame {
         setMaximizable(true);
         setResizable(true);
 
-        PnlIngreso.setBorder(javax.swing.BorderFactory.createTitledBorder("INFORMACION DE PRODUCTO"));
+        PnlIngreso.setBorder(javax.swing.BorderFactory.createTitledBorder("INFORMACION DE REPUESTO"));
         PnlIngreso.setPreferredSize(new java.awt.Dimension(522, 260));
 
         lblvallor.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        lblvallor.setText("Valor");
+        lblvallor.setText("Valor $USD");
 
         lblnombre.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        lblnombre.setText("Nombre Producto");
+        lblnombre.setText("Nombre Repuesto");
 
         lblstock.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblstock.setText("Q stock");
@@ -208,9 +205,6 @@ public class FrmProducto extends javax.swing.JInternalFrame {
 
         lbldescripcion.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lbldescripcion.setText("Descripción");
-
-        lblubicacion.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        lblubicacion.setText("Ubicación");
 
         lblParte.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         lblParte.setText("Nº Parte");
@@ -230,19 +224,13 @@ public class FrmProducto extends javax.swing.JInternalFrame {
                         .addGap(150, 150, 150)
                         .addComponent(lblllaveproducto))
                     .addGroup(PnlIngresoLayout.createSequentialGroup()
-                        .addGroup(PnlIngresoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblvallor, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblubicacion, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(10, 10, 10)
-                        .addGroup(PnlIngresoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(PnlIngresoLayout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(txt_valor, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lblstock, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txt_stock, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txt_ubicacion)))
+                        .addComponent(lblvallor, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                        .addComponent(txt_valor, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lblstock, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt_stock, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(PnlIngresoLayout.createSequentialGroup()
                         .addComponent(lblParte, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(10, 10, 10)
@@ -279,12 +267,9 @@ public class FrmProducto extends javax.swing.JInternalFrame {
                     .addComponent(lbldescripcion))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(PnlIngresoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(PnlIngresoLayout.createSequentialGroup()
-                        .addComponent(lblParte)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(PnlIngresoLayout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(lblParte)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(PnlIngresoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PnlIngresoLayout.createSequentialGroup()
                         .addGap(6, 6, 6)
@@ -293,29 +278,17 @@ public class FrmProducto extends javax.swing.JInternalFrame {
                         .addComponent(txt_valor, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(lblstock)
                         .addComponent(txt_stock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(PnlIngresoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblubicacion)
-                    .addComponent(txt_ubicacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addGap(37, 37, 37))
         );
 
         pnlBotones.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         pnlBotones.setPreferredSize(new java.awt.Dimension(200, 260));
 
         btn_Nuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/btn_nuevo.png"))); // NOI18N
-        btn_Nuevo.setText("Nuevo Producto");
+        btn_Nuevo.setText("Nuevo Repuesto");
         btn_Nuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_NuevoActionPerformed(evt);
-            }
-        });
-
-        btn_Eliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/btn_eliminar.png"))); // NOI18N
-        btn_Eliminar.setText("Eliminar");
-        btn_Eliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_EliminarActionPerformed(evt);
             }
         });
 
@@ -353,7 +326,6 @@ public class FrmProducto extends javax.swing.JInternalFrame {
                         .addGroup(pnlBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(btn_grabar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btn_Nuevo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btn_Eliminar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btn_Cancelar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(btn_Modificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -368,14 +340,13 @@ public class FrmProducto extends javax.swing.JInternalFrame {
                 .addComponent(btn_grabar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_Modificar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_Eliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btn_Cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(104, 104, 104))
         );
 
-        pnlbusqueda.setBorder(javax.swing.BorderFactory.createTitledBorder("PRODUCTOS EN STOCK"));
+        pnlbusqueda.setBorder(javax.swing.BorderFactory.createTitledBorder("REPUESTOS EN STOCK"));
+        pnlbusqueda.setToolTipText("");
 
         btn_buscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/btn_buscar.png"))); // NOI18N
         btn_buscar.setText("Buscar");
@@ -404,7 +375,7 @@ public class FrmProducto extends javax.swing.JInternalFrame {
 
         lblfiltroparte.setText("Nº Parte");
 
-        lblfiltrolbl1.setText("Producto");
+        lblfiltrolbl1.setText("Repuesto");
 
         btn_refrescar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/btn_refresh.png"))); // NOI18N
         btn_refrescar.setText("Refrescar");
@@ -498,7 +469,7 @@ public class FrmProducto extends javax.swing.JInternalFrame {
         txtnombre.setText("");
         txt_descripcion.setText("");
         txt_stock.setText("");
-        txt_ubicacion.setText("");
+        
         txt_parte.setText("");
         txt_valor.setText("");
         txt_filtroNSN.setText("");
@@ -508,7 +479,7 @@ public class FrmProducto extends javax.swing.JInternalFrame {
         txtnombre.setEnabled(true);
         txt_descripcion.setEnabled(true);
         txt_stock.setEnabled(true);
-        txt_ubicacion.setEnabled(true);
+        
         txt_parte.setEnabled(true);
         txt_valor.setEnabled(true);
         
@@ -518,7 +489,7 @@ public class FrmProducto extends javax.swing.JInternalFrame {
         lblllaveproducto.setText("0");
 
         btn_Modificar.setEnabled(false);
-        btn_Eliminar.setEnabled(false);
+        
         btn_Nuevo.setEnabled(false);
         //btn_salir.setEnabled(false);
         //btn_exportar.setEnabled(false);
@@ -528,17 +499,6 @@ public class FrmProducto extends javax.swing.JInternalFrame {
        
 
     }//GEN-LAST:event_btn_NuevoActionPerformed
-
-    private void btn_EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_EliminarActionPerformed
-        boolean resp = productos.DeleteProducto(prd);
-        if (resp == false) {
-            JOptionPane.showMessageDialog(null, "Dato Eliminado");
-            ListarTabla();
-            Limpiar();
-        } else {
-            JOptionPane.showMessageDialog(null, "Dato no Eliminado");
-        }
-    }//GEN-LAST:event_btn_EliminarActionPerformed
 
     private boolean validar_formulario()
     {
@@ -580,7 +540,7 @@ public class FrmProducto extends javax.swing.JInternalFrame {
                     txt_parte.getText(), 
                     Integer.parseInt(txt_stock.getText()), 
                     Integer.parseInt(txt_valor.getText()), 
-                    txt_ubicacion.getText(),
+                    "",
                     "",
                     "",
                     "",
@@ -619,7 +579,7 @@ public class FrmProducto extends javax.swing.JInternalFrame {
         txt_parte.setText(prd.getN_parte());
         txt_valor.setText(String.valueOf(prd.getValor_unitario()));
         txt_stock.setText(String.valueOf(prd.getCantidad()));
-        txt_ubicacion.setText(prd.getUbicacion());
+        
         
         txt_nsn.setEnabled(true);
         txtnombre.setEnabled(true);
@@ -627,18 +587,16 @@ public class FrmProducto extends javax.swing.JInternalFrame {
         txt_parte.setEnabled(true);
         txt_valor.setEnabled(true);
         txt_stock.setEnabled(true);
-        txt_ubicacion.setEnabled(true);
+        
         PnlIngreso.setEnabled(true);
         
         btn_Nuevo.setEnabled(false);
         btn_grabar.setEnabled(false);
         
-        btn_Eliminar.setEnabled(true);
         btn_Modificar.setEnabled(true);
         
         btn_Cancelar.setEnabled(true);
-        //btn_salir.setEnabled(false);
-        //btn_exportar.setEnabled(false);
+
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void btn_ModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_ModificarActionPerformed
@@ -657,7 +615,7 @@ public class FrmProducto extends javax.swing.JInternalFrame {
                     txt_parte.getText()
                     ,Integer.parseInt(txt_stock.getText()), 
                     Double.parseDouble(txt_valor.getText()), 
-                    txt_ubicacion.getText(),
+                    "",
                     "",
                     "",
                     "",
@@ -690,7 +648,6 @@ public class FrmProducto extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PnlIngreso;
     private javax.swing.JButton btn_Cancelar;
-    private javax.swing.JButton btn_Eliminar;
     private javax.swing.JButton btn_Modificar;
     private javax.swing.JButton btn_Nuevo;
     private javax.swing.JButton btn_buscar;
@@ -708,7 +665,6 @@ public class FrmProducto extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblnombre;
     private javax.swing.JLabel lblnsn;
     private javax.swing.JLabel lblstock;
-    private javax.swing.JLabel lblubicacion;
     private javax.swing.JLabel lblvallor;
     private javax.swing.JPanel pnlBotones;
     private javax.swing.JPanel pnlbusqueda;
@@ -719,7 +675,6 @@ public class FrmProducto extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txt_nsn;
     private javax.swing.JTextArea txt_parte;
     private javax.swing.JTextField txt_stock;
-    private javax.swing.JTextField txt_ubicacion;
     private javax.swing.JTextField txt_valor;
     private javax.swing.JTextField txtnombre;
     // End of variables declaration//GEN-END:variables

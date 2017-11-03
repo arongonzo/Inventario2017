@@ -211,6 +211,7 @@ public class FrmRepuesto extends javax.swing.JInternalFrame {
                 view_tabla = new ModeloTablaView_ProductosSolicitados(listas);
                 jTable2.setModel(view_tabla);
                 jTable2.getRowSorter();
+                activarProducto();
             } 
             else 
             {
@@ -468,6 +469,8 @@ public class FrmRepuesto extends javax.swing.JInternalFrame {
         });
 
         lbl_nombretecnico.setText("Nombre del Técnico");
+
+        txt_numerosolicitud.setEditable(false);
 
         lbl_correo.setText("Correo electrónico");
 
@@ -748,13 +751,13 @@ public class FrmRepuesto extends javax.swing.JInternalFrame {
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel18.setText("SOLICITUD DE REPUESTOS AYUDAS VISUALES");
 
-        pnlproducto.setBorder(javax.swing.BorderFactory.createTitledBorder("INFORMACION PRODUCTO"));
+        pnlproducto.setBorder(javax.swing.BorderFactory.createTitledBorder("INFORMACION REPUESTOS"));
 
         lbl_numeroparte.setText("Numero Parte");
 
         lbl_nsn.setText("N.S.N");
 
-        lblproducto.setText("Producto");
+        lblproducto.setText("Repuestos");
 
         lbl_descripcion.setText("Descripción");
 
@@ -989,10 +992,9 @@ public class FrmRepuesto extends javax.swing.JInternalFrame {
                     .addComponent(pnlPrioridad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pnlinformacion_sistema, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(pnlgrid, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(txt_solicitudLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(pnlproducto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addComponent(pnlSistema, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(pnlUsuario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1208, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(pnlproducto, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(pnlSistema, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 1208, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         txt_solicitudLayout.setVerticalGroup(
@@ -1443,11 +1445,11 @@ public class FrmRepuesto extends javax.swing.JInternalFrame {
             table.setTotalWidth(new float[]{ 80, 100,160,100,80});
             table.setLockedWidth(true);
 
-            PdfPCell cell = new PdfPCell(new Phrase("S.N.S", mediumfont));
+            PdfPCell cell = new PdfPCell(new Phrase("N.S.N", mediumfont));
             cell.setFixedHeight(20);
             table.addCell(cell);
 
-            cell = new PdfPCell(new Phrase("PRODUCTO", mediumfont));
+            cell = new PdfPCell(new Phrase("REPUESTO", mediumfont));
             cell.setFixedHeight(20);
             table.addCell(cell);
 
@@ -1500,7 +1502,7 @@ public class FrmRepuesto extends javax.swing.JInternalFrame {
 
     private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
 
-        viewp = ((ModeloTablaView_ProductosSolicitados) jTable2.getModel()).DameProgramadaDetalle(jTable2.getSelectedRow());
+        viewp = ((ModeloTablaView_ProductosSolicitados) jTable2.getModel()).DameRepuestoDetalle(jTable2.getSelectedRow());
 
         txt_producto.setEditable(true);
         txt_nsn.setEditable(true);
@@ -1559,32 +1561,32 @@ public class FrmRepuesto extends javax.swing.JInternalFrame {
 
     private void btn_eliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_eliminarActionPerformed
 
-        /*boolean resp = programadasdetalle.DeleteProgramada(pgrd);
+        int id_repuesto = Integer.parseInt(lblllaveprogramadadetalle.getText());
+        boolean resp = repuestodetalle.DeleteRepuesto(id_repuesto);
         if (resp == false) {
             JOptionPane.showMessageDialog(null, "Dato Eliminado");
+            ListarTablaBuscar();
             ListarTabla();
-            ListarTablaproducto();
-            
             activarProducto();
         } else {
             JOptionPane.showMessageDialog(null, "Dato no Eliminado");
-        }*/
+        }
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_eliminarActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
 
-        viewp = ((ModeloTablaView_ProductosSolicitados) jTable1.getModel()).DameProgramadaDetalle(jTable1.getSelectedRow());
+        spd = ((ModeloTablaRepuestoDetalle) jTable1.getModel()).DameRepuestoDetalle(jTable1.getSelectedRow());
 
-        lblllaveprogramadadetalle.setText(String.valueOf(viewp.getidProductoSolicitado()));
+        lblllaveprogramadadetalle.setText(String.valueOf(spd.getIdRepuestoDetalle()));
 
-        txt_nsn.setText(viewp.getNsn());
-        txt_numeroparte.setText(viewp.getNumeroparte());
-        txt_descripcion.setText(viewp.getDescripcion());
-        txt_producto.setText(viewp.getProduto());
-        txt_cantidad.setText(String.valueOf(viewp.getCantidad()));
+        txt_nsn.setText(spd.getNsn());
+        txt_numeroparte.setText(spd.getNumeroparte());
+        txt_descripcion.setText(spd.getDescripcion());
+        txt_producto.setText(spd.getProduto());
+        txt_cantidad.setText(String.valueOf(spd.getCantidad()));
 
-        btn_buscarproducto.setEnabled(false);
+        btn_buscarproducto.setEnabled(true);
         btn_agregar.setEnabled(false);
         btn_eliminar.setEnabled(true);
         btn_limpiar.setEnabled(true);
@@ -1599,6 +1601,7 @@ public class FrmRepuesto extends javax.swing.JInternalFrame {
             
             if(id_sistema>0){
                 ListarTablaBuscar();
+                
             }
         }
         catch (Exception ex)

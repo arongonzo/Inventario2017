@@ -427,7 +427,7 @@ public class FrmProgramada extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        pnlproducto.setBorder(javax.swing.BorderFactory.createTitledBorder("INFORMACION PRODUCTO"));
+        pnlproducto.setBorder(javax.swing.BorderFactory.createTitledBorder("INFORMACION REPUESTO"));
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -446,7 +446,7 @@ public class FrmProgramada extends javax.swing.JInternalFrame {
 
         lbl_nsn.setText("N.S.N");
 
-        lblproducto.setText("Producto");
+        lblproducto.setText("Repuesto");
 
         lbl_descripcion.setText("Descripción");
 
@@ -619,7 +619,7 @@ public class FrmProgramada extends javax.swing.JInternalFrame {
                 .addGap(225, 225, 225))
         );
 
-        pnlgrid.setBorder(javax.swing.BorderFactory.createTitledBorder("PRODUCTOS SOLICITADOS"));
+        pnlgrid.setBorder(javax.swing.BorderFactory.createTitledBorder("REPUESTOS SOLICITADOS"));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {

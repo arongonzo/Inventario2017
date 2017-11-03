@@ -7,7 +7,7 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 public class ModeloTablaView_ReporteProductoTotal extends AbstractTableModel {
-        String[] columnas = {"codigo producto", "NSN Producto", "Nombre Producto", "Descripcion del Producto", "Total Solicitado", "Despachos realizados SSNV", "Saldo Inicio", "En Stock", "Stock Futuro al dia de hoy", "Elementos por llegar", "Requerimiento duro", "Stock de seguridad 10%", "Valor unitario en USD"};
+        String[] columnas = {"codigo Repuesto", "NSN Producto", "Nombre Repuesto", "Descripcion del Repuesto", "Total Programado", "Total Solicitado", "Despachos realizados SSNV", "Saldo Inicio", "En Stock", "Stock Futuro al dia de hoy", "Elementos por llegar", "Requerimiento duro", "Stock de seguridad 10%", "Valor unitario en USD"};
     public List<View_ReporteProductoTotal> view = new ArrayList<>();
 
     public ModeloTablaView_ReporteProductoTotal(List<View_ReporteProductoTotal> viewProductototal) {
@@ -46,30 +46,33 @@ public class ModeloTablaView_ReporteProductoTotal extends AbstractTableModel {
                 resp = view.get(rowIndex).getdescripcion_producto();
                 break;
             case 4:    
-                resp = view.get(rowIndex).getTotalSolicitado();
+                resp = view.get(rowIndex).getTotalProgramado();
                 break;
             case 5:    
-                resp = view.get(rowIndex).getDespachosrealizados();
+                resp = view.get(rowIndex).getTotalSolicitado();
                 break;
             case 6:    
-                resp = view.get(rowIndex).getSaldoinicio();
+                resp = view.get(rowIndex).getDespachosrealizados();
                 break;
             case 7:    
-                resp = view.get(rowIndex).getSaldostock();
+                resp = view.get(rowIndex).getSaldoinicio();
                 break;
             case 8:    
-                resp = view.get(rowIndex).getStockFuturo();
+                resp = view.get(rowIndex).getSaldostock();
                 break;
             case 9:    
                 resp = view.get(rowIndex).getelementosporllegar();
                 break;
             case 10:    
-                resp = view.get(rowIndex).getrequerimientoduro();
+                resp = view.get(rowIndex).getStockFuturo();
                 break;
             case 11:    
-                resp = view.get(rowIndex).getstockseguridad();
+                resp = view.get(rowIndex).getrequerimientoduro();
                 break;
             case 12:    
+                resp = view.get(rowIndex).getstockseguridad();
+                break;
+            case 13:    
                 resp = view.get(rowIndex).getValorunitario();
                 break;
                 

@@ -6,7 +6,7 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 public class ModeloTablaView_ReporteInicioTemporada  extends AbstractTableModel {
-    String[] columnas = {"Año", "codigo", "N.S.N", "Producto", "Descripcion", "Nº Parte", "Saldo inicial", "Valor Initario"};
+    String[] columnas = {"Año", "codigo", "N.S.N", "Repuesto", "Descripcion", "Nº Parte", "Saldo inicial", "Valor Initario"};
     public List<View_ReporteInicioTemporada> ViewReporteInicioTemporada = new ArrayList<>();
 
     public ModeloTablaView_ReporteInicioTemporada(List<View_ReporteInicioTemporada> View_ReporteInicioTemporada) {

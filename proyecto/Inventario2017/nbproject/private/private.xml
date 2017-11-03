@@ -3,56 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/ModeloTabla/ModeloTablaView_ReporteProductoTotal.java</file>
-            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/Formularios/frmPrincipal.java</file>
-            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/Conecciones/DespachoDao.java</file>
-            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/Conecciones/View_ReporteInicioTemporadaDao.java</file>
-            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/Formularios/frmLogin.java</file>
-            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/ModeloTabla/ModeloTablaView_ReporteSolicitudProgramada.java</file>
-            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/Conecciones/View_ReporteProductoTotalDao.java</file>
-            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/Entidades/View_ReporteSolicitudProgramada.java</file>
-            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/Conecciones/ProductoDao.java</file>
-            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/Formularios/FrmInformeProducto.java</file>
             <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/Formularios/FrmDespacho.java</file>
-            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/clases/FormatRenderer.java</file>
-            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/Formularios/FrmInformeDespacho.java</file>
-            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/Entidades/SolicitudRepuesto.java</file>
-            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/ModeloTabla/ModeloTablaView_ReporteDetalleSolicitudAnual.java</file>
-            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/clases/Datos.java</file>
-            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/Entidades/Producto.java</file>
-            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/Logico/View_ProductoDespachoSolicitadoLog.java</file>
-            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/Formularios/FrmInformeReporteDespacho.java</file>
-            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/Conecciones/View_ReporteSolicitudProgramadaDao.java</file>
-            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/Entidades/DespachoDetalle.java</file>
-            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/Conecciones/View_ReporteSolicitudProgramadaAnualDao.java</file>
-            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/Formularios/FrmInformeReporteAnual.java</file>
-            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/ModeloTabla/ModeloTablaView_ProductoDespachoSolicitado.java</file>
-            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/clases/Inventario.java</file>
-            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/Logico/View_ReporteDespachoLog.java</file>
-            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/Conecciones/View_ProductoDespachoSolicitadoDao.java</file>
-            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/ModeloTabla/ModeloTablaView_ReporteSolicitudRepuesto.java</file>
-            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/ModeloTabla/ModeloTablaView_ReporteDespacho.java</file>
-            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/Conecciones/DespachoDetalleDao.java</file>
-            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/Formularios/FrmProgramada.java</file>
-            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/clases/NumberRenderer.java</file>
-            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/Formularios/FrmInformeSolicitudRepuesto.java</file>
-            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/Formularios/FrmProducto.java</file>
-            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/ModeloTabla/ModeloTablaView_ProductosSolicitados.java</file>
-            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/ModeloTabla/ModeloTablaDespachoDetalle.java</file>
-            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/Conecciones/View_ReporteSolicitudRepuestoDao.java</file>
-            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/Entidades/View_ReporteProductoTotal.java</file>
-            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/Conecciones/SolicitudRepuestoDao.java</file>
+            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/Logico/DespachoDetalleLog.java</file>
             <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/Formularios/FrmRepuesto.java</file>
-            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/Conecciones/View_ReporteDespachoDao.java</file>
-            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/Conecciones/View_ProductosSolicitadosDao.java</file>
-            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/ModeloTabla/ModeloTablaView_Producto.java</file>
-            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/Entidades/View_ProductoDespachoSolicitado.java</file>
-            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/ModeloTabla/ModeloTablaView_ReporteInicioTemporada.java</file>
-            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/Logico/SolicitudRepuestoLog.java</file>
-            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/Formularios/FrmTemporada.java</file>
-            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/Logico/ProductoLog.java</file>
-            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/Logico/View_ReporteInicioTemporadaLog.java</file>
-            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/Entidades/Despacho.java</file>
+            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/Conecciones/DespachoDetalleDao.java</file>
+            <file>file:/D:/samuelgonzalez/PROYECTOS/inventario/proyecto/Inventario2017/src/Formularios/FrmInformeReporteDespacho.java</file>
         </group>
     </open-files>
 </project-private>

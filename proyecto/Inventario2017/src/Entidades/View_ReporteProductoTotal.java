@@ -8,6 +8,7 @@ public class View_ReporteProductoTotal {
     String nsn_producto;
     String nombre;
     String descripcion_producto;
+    int TotalProgramado;
     int TotalSolicitado;
     int Despachosrealizados;
     int Saldoinicio;
@@ -47,6 +48,13 @@ public class View_ReporteProductoTotal {
     }
     public void setdescripcion_producto(String descripcion_producto) {
         this.descripcion_producto = descripcion_producto;
+    }
+    
+    public int getTotalProgramado() {
+        return TotalProgramado;
+    }
+    public void setTotalProgramado(int TotalProgramado) {
+        this.TotalProgramado = TotalProgramado;
     }
     
     public int getTotalSolicitado() {

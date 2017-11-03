@@ -22,7 +22,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="mnuproductos">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Productos"/>
+                <Property name="text" type="java.lang.String" value="Formulario de ingreso de repuestos reci&#xe9;n adquiridos"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuproductosActionPerformed"/>
@@ -37,7 +37,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="mnudespachoproducto">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Despacho de Productos"/>
+                <Property name="text" type="java.lang.String" value="Despacho de Repuestos"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnudespachoproductoActionPerformed"/>
@@ -78,7 +78,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="mnuInformeProducto">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Reporte de Stock de Inventario"/>
+                <Property name="text" type="java.lang.String" value="Reporte Repuestos Adquiridos"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuInformeProductoActionPerformed"/>
@@ -118,7 +118,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Informe Producto Completo"/>
+                <Property name="text" type="java.lang.String" value="Reporte Anual de Movimientos en Bodega"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem1ActionPerformed"/>

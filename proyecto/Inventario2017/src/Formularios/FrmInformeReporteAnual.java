@@ -226,8 +226,7 @@ public class FrmInformeReporteAnual extends javax.swing.JInternalFrame {
                    reportDate = df.format(date);
                 } 
             }
-            
-            
+              
             long datetimemlli= Datos.DatetoMilisecond(new Date());
             
             XSSFWorkbook wb = new XSSFWorkbook(new FileInputStream("c:/excel/template_reporterepuestoanual.xlsx"));

@@ -8,7 +8,7 @@ import javax.swing.table.AbstractTableModel;
 
 public class ModeloTablaRepuestoDetalle  extends AbstractTableModel {
     
-    String[] columnas = {"N.S.N", "Producto","Descripcion", "Nº Parte", "Cantidad solicitda"};
+    String[] columnas = {"N.S.N", "Repuesto","Descripcion", "Nº Parte", "Cantidad solicitda"};
     public List<SolicitudRepuestoDetalle> RepuestoDetalles = new ArrayList<>();
 
     public ModeloTablaRepuestoDetalle(List<SolicitudRepuestoDetalle> ProgramadaDetalles) {

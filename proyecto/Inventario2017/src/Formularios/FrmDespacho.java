@@ -88,15 +88,14 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
     
     public void CargarDatosPendientes()
     {
-        
         try
         {
             ResultSet objResultSet;
             objResultSet = Conecciones.Coneccion.consulta(" SELECT Despacho.id_despacho, Despacho.id_temporada, Despacho.id_comercial, Despacho.id_usuario, Despacho.id_unidad, Despacho.id_sistema, convert(varchar(10),Despacho.fecha,103) as fecha, Despacho.id_prioridad, Despacho.nombre_recibe, " +
-                                                            " Despacho.correo_recibe, Despacho.anexo_recibe, Despacho.estado, unidad.id_zonal " +
+                                                            " Despacho.correo_recibe, Despacho.anexo_recibe, Despacho.estado, unidad.id_zonal, unidad.nombre_unidad " +
                                                             " FROM            Despacho left JOIN " +
                                                             " unidad ON Despacho.id_unidad = unidad.id_unidad " +
-                                                            " WHERE (Despacho.estado = 2) ");
+                                                            " WHERE (Despacho.estado = 2) ") ;
 
             while (objResultSet.next())
             {
@@ -118,7 +117,6 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
                     if(objResultSet.getString("id_unidad") != "0")
                     {
                         cbx_unidad.getModel().setSelectedItem(new CmbUnidad(objResultSet.getString("nombre_unidad"), objResultSet.getString("id_unidad")));
-                        
                     }
                 }
                 
@@ -515,13 +513,13 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
                 .addGap(66, 66, 66))
         );
 
-        pnlproducto.setBorder(javax.swing.BorderFactory.createTitledBorder("INFORMACION PRODUCTO SOLICITADO"));
+        pnlproducto.setBorder(javax.swing.BorderFactory.createTitledBorder("INFORMACION REPUESTO SOLICITADO"));
 
         lbl_numeroparte.setText("Numero Parte");
 
         lbl_nsn.setText("N.S.N");
 
-        lblproducto.setText("Producto");
+        lblproducto.setText("Repuesto");
 
         lbl_descripcion.setText("Descripción");
 
@@ -697,7 +695,7 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
                 .addGap(123, 123, 123))
         );
 
-        pnlgrid.setBorder(javax.swing.BorderFactory.createTitledBorder("PRODUCTOS PARA DESPACHO"));
+        pnlgrid.setBorder(javax.swing.BorderFactory.createTitledBorder("REPUESTOS PARA DESPACHO"));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -748,7 +746,7 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel18)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lbl_idcomercio)
+                        .addComponent(lbl_idcomercio, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btn_nuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -765,7 +763,7 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btn_nuevo)
                             .addComponent(btn_finalizar)
-                            .addComponent(lbl_idcomercio, javax.swing.GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)))
+                            .addComponent(lbl_idcomercio, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlDespacho, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1192,11 +1190,11 @@ public class FrmDespacho extends javax.swing.JInternalFrame {
             table.setTotalWidth(new float[]{ 80, 100,160,100,80});
             table.setLockedWidth(true);
 
-            PdfPCell cell = new PdfPCell(new Phrase("S.N.S", mediumfont));
+            PdfPCell cell = new PdfPCell(new Phrase("N.S.N", mediumfont));
             cell.setFixedHeight(20);
             table.addCell(cell);
 
-            cell = new PdfPCell(new Phrase("PRODUCTO", mediumfont));
+            cell = new PdfPCell(new Phrase("REPUESTO", mediumfont));
             cell.setFixedHeight(20);
             table.addCell(cell);
 

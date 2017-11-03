@@ -33,6 +33,7 @@ public class View_ReporteProductoTotalDao {
                 
                 Prd.setnombre(rs.getString("nombre"));
                 Prd.setdescripcion_producto(rs.getString("descripcion_producto"));
+                Prd.setTotalProgramado(rs.getInt("TotalProgramado"));
                 Prd.setTotalSolicitado(rs.getInt("TotalSolicitado"));
                 Prd.setDespachosrealizados(rs.getInt("Despachosrealizados"));
                 Prd.setSaldoinicio(rs.getInt("Saldoinicio"));
