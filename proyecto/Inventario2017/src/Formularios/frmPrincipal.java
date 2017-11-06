@@ -189,7 +189,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         mnuinformes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/informes.png"))); // NOI18N
         mnuinformes.setText("Informes");
 
-        mnuInformeProducto.setText("Reporte Repuestos Adquiridos");
+        mnuInformeProducto.setText("Reporte Stock de Inventario");
         mnuInformeProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnuInformeProductoActionPerformed(evt);

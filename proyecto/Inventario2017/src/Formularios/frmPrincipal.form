@@ -78,7 +78,7 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="mnuInformeProducto">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Reporte Repuestos Adquiridos"/>
+                <Property name="text" type="java.lang.String" value="Reporte Stock de Inventario"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuInformeProductoActionPerformed"/>
